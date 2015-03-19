@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	TestLexer.class
+	TestLexer.class,
+	TestToken.class,
 })
 public class StandardTestSuite {}
