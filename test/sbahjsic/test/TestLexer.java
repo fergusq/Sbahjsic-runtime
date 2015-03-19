@@ -104,7 +104,17 @@ public class TestLexer {
 	}
 	
 	@Test(expected=UnrecognizedTokenException.class)
-	public void testReservedCharactersNotAllowedInIdentifiers() {
+	public void testBackslashNotAllowedInIdentifiers() {
 		Lexer.toTokens("\\");
+	}
+	
+	@Test
+	public void testLexingDollars() {
+		List<Token> tokens = Lexer.toTokens("$x$ $");
+		assertEquals(tokens, Arrays.asList(
+				Token.DOLLAR,
+				Token.identifier("x"),
+				Token.DOLLAR,
+				Token.DOLLAR));
 	}
 }

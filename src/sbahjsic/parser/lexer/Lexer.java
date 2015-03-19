@@ -9,6 +9,7 @@ public final class Lexer {
 		TokenMatcher.BRACKET_OPEN_MATCHER,
 		TokenMatcher.BRACKET_CLOSE_MATCHER,
 		TokenMatcher.COMMA_MATCHER,
+		TokenMatcher.DOLLAR_MATCHER,
 		TokenMatcher.OPERATOR_MATCHER,
 		TokenMatcher.INT_LITERAL_MATCHER,
 		TokenMatcher.STRING_LITERAL_MATCHER,

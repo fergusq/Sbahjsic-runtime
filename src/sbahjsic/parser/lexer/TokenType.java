@@ -8,5 +8,6 @@ public enum TokenType {
 	STRING_LITERAL,
 	BRACKET_OPEN,
 	BRACKET_CLOSE,
-	COMMA
+	COMMA,
+	DOLLAR
 }

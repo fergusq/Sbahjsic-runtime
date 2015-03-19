@@ -8,6 +8,7 @@ interface TokenMatcher {
 	final static TokenMatcher BRACKET_OPEN_MATCHER = LexerUtils.targetStringMatcher("(", Token.BRACKET_OPEN);
 	final static TokenMatcher BRACKET_CLOSE_MATCHER = LexerUtils.targetStringMatcher(")", Token.BRACKET_CLOSE);
 	final static TokenMatcher COMMA_MATCHER = LexerUtils.targetStringMatcher(",", Token.COMMA);
+	final static TokenMatcher DOLLAR_MATCHER = LexerUtils.targetStringMatcher("$", Token.DOLLAR);
 	
 	final static TokenMatcher STRING_LITERAL_MATCHER = string -> {
 		if(string.length() < 2) { return null; }

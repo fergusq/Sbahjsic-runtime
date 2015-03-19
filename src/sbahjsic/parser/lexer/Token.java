@@ -12,6 +12,9 @@ public final class Token {
 	/** The token ",".*/
 	public final static Token COMMA = new Token(TokenType.COMMA, ",");
 	
+	/** The token "$".*/
+	public final static Token DOLLAR = new Token(TokenType.DOLLAR, "$");
+	
 	private final TokenType type;
 	private final String string;
 	
