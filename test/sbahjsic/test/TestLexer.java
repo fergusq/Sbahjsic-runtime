@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import sbahjsic.parser.lexer.Lexer;
 import sbahjsic.parser.lexer.Token;
+import sbahjsic.parser.lexer.TokenType;
 import sbahjsic.parser.lexer.UnrecognizedTokenException;
 
 public class TestLexer {
@@ -69,6 +70,13 @@ public class TestLexer {
 	}
 	
 	@Test
+	public void testAllOperatorCharsAllowed() {
+		List<Token> tokens = Lexer.toTokens("+ - * / & | > < = ! ?");
+		for(Token token : tokens)
+			assertEquals(token.type(), TokenType.OPERATOR);
+	}
+	
+	@Test
 	public void testLexingBrackets() {
 		List<Token> tokens = Lexer.toTokens("(()(");
 		assertEquals(tokens, Arrays.asList(
@@ -93,5 +101,10 @@ public class TestLexer {
 				Token.intLiteral("5677"),
 				Token.intLiteral("2"),
 				Token.intLiteral("87367")));
+	}
+	
+	@Test(expected=UnrecognizedTokenException.class)
+	public void testReservedCharactersNotAllowedInIdentifiers() {
+		Lexer.toTokens("\\");
 	}
 }
