@@ -1,8 +1,9 @@
 package sbahjsic.parser.lexer;
 
-
 @FunctionalInterface
 interface TokenMatcher {
+	
+	Token nextToken(String line);
 	
 	final static TokenMatcher BRACKET_OPEN_MATCHER = LexerUtils.targetStringMatcher("(", Token.BRACKET_OPEN);
 	final static TokenMatcher BRACKET_CLOSE_MATCHER = LexerUtils.targetStringMatcher(")", Token.BRACKET_CLOSE);
@@ -11,41 +12,30 @@ interface TokenMatcher {
 	final static TokenMatcher STRING_LITERAL_MATCHER = string -> {
 		if(string.length() < 2) { return null; }
 		if(!string.startsWith("\"")) { return null; }
-		int index = -1;
+		int endIndex = -1;
 		
 		for(int i = 1; i < string.length(); i++) {
 			char character = string.charAt(i);
 			
 			if(string.charAt(i-1) != '\\' && character == '"') {
-				index = i;
+				endIndex = i;
 				break;
 			}
 		}
 		
-		if(index > 0) {
-			return Token.stringLiteral(string.substring(0, index+1));
+		if(endIndex > 0) {
+			return Token.stringLiteral(string.substring(0, endIndex+1));
 		}
 		
 		return null;
 	};
 	
-	final static TokenMatcher OPERATOR_MATCHER = string -> {
-		int firstNonOpChar = string.length();
-		
-		for(int i = 0; i < string.length(); i++) {
-			char character = string.charAt(i);
-			if(!LexerUtils.isOperatorChar(character)) {
-				firstNonOpChar = i;
-				break;
-			}
-		}
-		
-		if(firstNonOpChar > 0) {
-			return Token.operator(string.substring(0, firstNonOpChar));
-		}
-		
-		return null;
-	};
+	final static TokenMatcher OPERATOR_MATCHER = 
+			LexerUtils.matchUntilIllegalFound(LexerUtils::isOperatorChar, Token::operator);
 	
-	Token nextToken(String line);
+	final static TokenMatcher INT_LITERAL_MATCHER = 
+			LexerUtils.matchUntilIllegalFound(LexerUtils::isNumeric, Token::intLiteral);
+	
+	final static TokenMatcher IDENTIFIER_MATCHER = 
+			LexerUtils.matchUntilIllegalFound(LexerUtils::isValidIdentifierChar, Token::identifier);
 }

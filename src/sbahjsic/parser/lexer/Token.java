@@ -18,6 +18,10 @@ public final class Token {
 	private Token(TokenType type, String string) {
 		this.type = type;
 		this.string = string;
+		
+		if(this.string.isEmpty()) {
+			throw new IllegalArgumentException("Token cannot be empty");
+		}
 	}
 	
 	/** Returns the type of this token as defined in {@code TokenType}.

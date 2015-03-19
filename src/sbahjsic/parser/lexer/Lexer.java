@@ -10,7 +10,9 @@ public final class Lexer {
 		TokenMatcher.BRACKET_CLOSE_MATCHER,
 		TokenMatcher.COMMA_MATCHER,
 		TokenMatcher.OPERATOR_MATCHER,
-		TokenMatcher.STRING_LITERAL_MATCHER
+		TokenMatcher.INT_LITERAL_MATCHER,
+		TokenMatcher.STRING_LITERAL_MATCHER,
+		TokenMatcher.IDENTIFIER_MATCHER
 	};
 	
 	private String line;

@@ -84,4 +84,14 @@ public class TestLexer {
 		assertEquals(tokens, Arrays.asList(
 				Token.COMMA, Token.COMMA, Token.COMMA));
 	}
+	
+	@Test
+	public void testParsingIntLiterals() {
+		List<Token> tokens = Lexer.toTokens("0 5677 2 87367");
+		assertEquals(tokens, Arrays.asList(
+				Token.intLiteral("0"),
+				Token.intLiteral("5677"),
+				Token.intLiteral("2"),
+				Token.intLiteral("87367")));
+	}
 }
