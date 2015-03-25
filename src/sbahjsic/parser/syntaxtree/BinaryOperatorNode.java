@@ -4,12 +4,12 @@ import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
 /** Represents a binary operator.*/
-public final class BinaryOperatorNode extends Node {
+public final class BinaryOperatorNode extends ValueNode {
 	
 	private final String operator;
 	private final Node firstSubnode, secondSubnode;
 	
-	public BinaryOperatorNode(Token op, Node first, Node second) {
+	public BinaryOperatorNode(Token op, ValueNode first, ValueNode second) {
 		if(op.type() != TokenType.OPERATOR) {
 			throw new IllegalArgumentException();
 		}

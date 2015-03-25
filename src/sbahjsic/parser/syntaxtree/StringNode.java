@@ -4,7 +4,7 @@ import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
 /** Represents a string node.*/
-public final class StringNode extends Node {
+public final class StringNode extends ValueNode {
 	
 	private final String string;
 	

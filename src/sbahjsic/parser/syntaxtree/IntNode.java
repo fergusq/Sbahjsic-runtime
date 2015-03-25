@@ -4,7 +4,7 @@ import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
 /** A node that contains an integer.*/
-public final class IntNode extends Node {
+public final class IntNode extends ValueNode {
 	
 	private final int integer;
 	

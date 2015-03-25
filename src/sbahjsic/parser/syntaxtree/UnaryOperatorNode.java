@@ -4,12 +4,12 @@ import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
 /** Represents an unary operator.*/
-public final class UnaryOperatorNode extends Node {
+public final class UnaryOperatorNode extends ValueNode {
 	
 	private final String operator;
 	private final Node subnode;
 	
-	public UnaryOperatorNode(Token op, Node subnode) {
+	public UnaryOperatorNode(Token op, ValueNode subnode) {
 		if(op.type() != TokenType.OPERATOR) {
 			throw new IllegalArgumentException();
 		}
