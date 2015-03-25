@@ -37,6 +37,9 @@ public final class Lexer {
 		throw new UnrecognizedTokenException(line);
 	}
 	
+	/** Lexes a line into a list of tokens.
+	 * @param line the line to lex
+	 * @return a list of tokens*/
 	public static List<Token> toTokens(String line) {
 		List<Token> tokens = new ArrayList<>();
 		Lexer lexer = new Lexer(line);
