@@ -14,7 +14,7 @@ public final class IfNode extends Node {
 	
 	@Override
 	public String toString() {
-		return "if";
+		return "IF{" + value + "}";
 	}
 
 	@Override

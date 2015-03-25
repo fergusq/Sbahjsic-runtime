@@ -7,7 +7,7 @@ public final class EndIfNode extends Node {
 	public NodeType type() { return NodeType.ENDIF_NODE; }
 
 	@Override
-	public String toString() { return "endif"; }
+	public String toString() { return "ENDIF"; }
 
 	@Override
 	public boolean equals(Object o) {

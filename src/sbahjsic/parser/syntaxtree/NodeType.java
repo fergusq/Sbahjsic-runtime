@@ -4,6 +4,8 @@ package sbahjsic.parser.syntaxtree;
 public enum NodeType {
 	INT_LITERAL,
 	STRING_LITERAL,
+	IDENTIFIER,
+	FUNCTION_CALL,
 	UNARY_OPERATOR,
 	BINARY_OPERATOR,
 	IF_NODE,

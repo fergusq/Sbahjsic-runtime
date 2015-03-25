@@ -117,4 +117,13 @@ public class TestLexer {
 				Token.DOLLAR,
 				Token.DOLLAR));
 	}
+	
+	@Test
+	public void testIdentifiersSeparatedByWhitespaceBeingOwnTokens() {
+		List<Token> tokens = Lexer.toTokens("x 6 t");
+		assertEquals(tokens, Arrays.asList(
+				Token.identifier("x"),
+				Token.intLiteral("6"),
+				Token.identifier("t")));
+	}
 }

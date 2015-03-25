@@ -23,7 +23,7 @@ public final class UnaryOperatorNode extends ValueNode {
 
 	@Override
 	public String toString() {
-		return operator + "(" + subnode + ")";
+		return operator + "{" + subnode + "}";
 	}
 
 	@Override

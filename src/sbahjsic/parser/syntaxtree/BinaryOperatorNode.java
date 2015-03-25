@@ -24,7 +24,7 @@ public final class BinaryOperatorNode extends ValueNode {
 
 	@Override
 	public String toString() {
-		return operator + "(" + firstSubnode + ", " + secondSubnode + ")";
+		return operator + "{" + firstSubnode + ", " + secondSubnode + "}";
 	}
 
 	@Override
