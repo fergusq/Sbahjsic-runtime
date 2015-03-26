@@ -102,4 +102,9 @@ public class TestParser {
 	public void testParsingInnerFunctionCalls() {
 		assertEquals(parse("f(g(x), h(y))"), "f{g{x}, h{y}}");
 	}
+	
+	@Test
+	public void testAdjacentFunctionCalls() {
+		assertEquals(parse("f(x) + g(y, z)"), "+{f{x}, g{y, z}}");
+	}
 }
