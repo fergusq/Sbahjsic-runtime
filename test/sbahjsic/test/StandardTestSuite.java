@@ -8,6 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	TestLexer.class,
 	TestToken.class,
-	TestParser.class
+	TestParser.class,
+	TestCompiler.class
 })
 public class StandardTestSuite {}

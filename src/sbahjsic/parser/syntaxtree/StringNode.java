@@ -1,5 +1,6 @@
 package sbahjsic.parser.syntaxtree;
 
+import sbahjsic.parser.compiler.Instruction;
 import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
@@ -18,6 +19,11 @@ public final class StringNode extends ValueNode {
 
 	@Override
 	public NodeType type() { return NodeType.STRING_LITERAL; }
+	
+	@Override
+	public Instruction[] toInstructions() {
+		return new Instruction[] { Instruction.pushString(string) };
+	}
 
 	@Override
 	public String toString() {

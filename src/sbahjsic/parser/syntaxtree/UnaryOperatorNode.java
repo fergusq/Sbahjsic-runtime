@@ -1,5 +1,6 @@
 package sbahjsic.parser.syntaxtree;
 
+import sbahjsic.parser.compiler.Instruction;
 import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
@@ -20,6 +21,18 @@ public final class UnaryOperatorNode extends ValueNode {
 
 	@Override
 	public NodeType type() { return NodeType.UNARY_OPERATOR; }
+	
+	@Override
+	public Instruction[] toInstructions() {
+		Instruction[] argInstructions = subnode.toInstructions();
+		Instruction[] instructions = new Instruction[argInstructions.length + 1];
+		
+		System.arraycopy(argInstructions, 0, instructions, 0, argInstructions.length);
+		
+		instructions[instructions.length -1] = Instruction.unaryOperator(operator);
+		
+		return instructions;
+	}
 
 	@Override
 	public String toString() {

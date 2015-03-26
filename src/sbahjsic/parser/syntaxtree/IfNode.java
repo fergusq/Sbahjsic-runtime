@@ -1,5 +1,7 @@
 package sbahjsic.parser.syntaxtree;
 
+import sbahjsic.parser.compiler.Instruction;
+
 /** An if node.*/
 public final class IfNode extends Node {
 	
@@ -11,6 +13,18 @@ public final class IfNode extends Node {
 	
 	@Override
 	public NodeType type() { return NodeType.IF_NODE; }
+	
+	@Override
+	public Instruction[] toInstructions() {
+		Instruction[] argInstructions = value.toInstructions();
+		
+		Instruction[] instructions = new Instruction[argInstructions.length + 1];
+		System.arraycopy(argInstructions, 0, instructions, 0, argInstructions.length);
+		
+		instructions[instructions.length - 1] = Instruction.ifStart();
+		
+		return instructions;
+	}
 	
 	@Override
 	public String toString() {

@@ -1,5 +1,6 @@
 package sbahjsic.parser.syntaxtree;
 
+import sbahjsic.parser.compiler.Instruction;
 import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
@@ -21,6 +22,22 @@ public final class BinaryOperatorNode extends ValueNode {
 
 	@Override
 	public NodeType type() { return NodeType.BINARY_OPERATOR; }
+	
+	@Override
+	public Instruction[] toInstructions() {
+		Instruction[] firstArgInstructions = firstSubnode.toInstructions();
+		Instruction[] secondArgInstructions = secondSubnode.toInstructions();
+		Instruction[] instructions = new Instruction[firstArgInstructions.length + secondArgInstructions.length + 1];
+		
+		System.arraycopy(secondArgInstructions, 0, instructions, 0, secondArgInstructions.length);
+		
+		int firstIndex = secondArgInstructions.length;
+		System.arraycopy(firstArgInstructions, 0, instructions, firstIndex, firstArgInstructions.length);
+		
+		instructions[instructions.length-1] = Instruction.binaryOperator(operator);
+		
+		return instructions;
+	}
 
 	@Override
 	public String toString() {

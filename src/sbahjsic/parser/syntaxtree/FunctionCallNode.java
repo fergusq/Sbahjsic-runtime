@@ -2,6 +2,7 @@ package sbahjsic.parser.syntaxtree;
 
 import java.util.Arrays;
 
+import sbahjsic.parser.compiler.Instruction;
 import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
@@ -21,6 +22,32 @@ public final class FunctionCallNode extends ValueNode {
 
 	@Override
 	public NodeType type() { return NodeType.FUNCTION_CALL; }
+	
+	@Override
+	public Instruction[] toInstructions() {
+		Instruction[][] argInstructions = new Instruction[args.length][];
+		int totalSpace = 2;
+		
+		for(int i = 0; i < args.length; i++) {
+			argInstructions[i] = args[i].toInstructions();
+			totalSpace += argInstructions[i].length;
+		}
+		
+		Instruction[] instructions = new Instruction[totalSpace];
+		int nextIndex = 0;
+		
+		for(int i = argInstructions.length-1; i >= 0; i--) {
+			Instruction[] argInstruction = argInstructions[i];
+			
+			System.arraycopy(argInstruction, 0, instructions, nextIndex, argInstruction.length);
+			nextIndex += argInstruction.length;
+		}
+		
+		instructions[instructions.length - 2] = Instruction.pushVar(function);
+		instructions[instructions.length - 1] = Instruction.functionCall(args.length);
+		
+		return instructions;
+	}
 
 	@Override
 	public String toString() {

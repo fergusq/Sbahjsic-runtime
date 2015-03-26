@@ -1,5 +1,6 @@
 package sbahjsic.parser.syntaxtree;
 
+import sbahjsic.parser.compiler.Instruction;
 import sbahjsic.parser.lexer.Token;
 
 /** Represents an identifier node.*/
@@ -13,6 +14,11 @@ public class IdentifierNode extends ValueNode {
 
 	@Override
 	public NodeType type() { return NodeType.IDENTIFIER; }
+	
+	@Override
+	public Instruction[] toInstructions() {
+		return new Instruction[] { Instruction.pushVar(identifier) };
+	}
 
 	@Override
 	public String toString() {
