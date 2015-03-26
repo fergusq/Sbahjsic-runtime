@@ -50,7 +50,18 @@ final class Parser {
 		}
 		
 		if(isFunctionCall(tokens)) {
-			return parseFunctionCall(tokens);
+			
+			int nextOperator = getFirstOperatorIndex(tokens);
+			
+			if(nextOperator == -1) {
+				return parseFunctionCall(tokens);
+			}
+			
+			Token operator = tokens.get(nextOperator);
+			
+			return new BinaryOperatorNode(operator, 
+					parseFunctionCall(tokens.subList(0, nextOperator)),
+					parseValue(tokens.subList(nextOperator+1, tokens.size())));
 		}
 		
 		return parseOperatorStatement(tokens);
@@ -173,5 +184,23 @@ final class Parser {
 		args.add(parseValue(argumentTokens.subList(argStartIndex, argumentTokens.size())));
 		
 		return new FunctionCallNode(function, args.toArray(new ValueNode[args.size()]));
+	}
+	
+	static int getFirstOperatorIndex(List<Token> tokens) {
+		int bracketLevel = 0;
+		
+		for(int i = 0; i < tokens.size(); i++) {
+			TokenType type = tokens.get(i).type();
+			
+			if(type == TokenType.BRACKET_OPEN) { bracketLevel++; }
+			
+			if(bracketLevel == 0 && type == TokenType.OPERATOR) {
+				return i;
+			}
+			
+			if(type == TokenType.BRACKET_CLOSE) { bracketLevel--; }
+		}
+		
+		return -1;
 	}
 }
