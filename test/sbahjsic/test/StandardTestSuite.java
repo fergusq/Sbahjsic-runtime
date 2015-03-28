@@ -9,6 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	TestLexer.class,
 	TestToken.class,
 	TestParser.class,
-	TestCompiler.class
+	TestCompiler.class,
+	TestExecutor.class
 })
 public class StandardTestSuite {}

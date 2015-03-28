@@ -29,6 +29,7 @@ abstract class AbstractType implements SValue {
 	}
 	
 	public final Map<String, Operator> operatorMap() {
+		ensureMapExistance();
 		return OP_MAP.get(this.getClass());
 	}
 	
@@ -52,4 +53,10 @@ abstract class AbstractType implements SValue {
 	public String toString() {
 		return asString();
 	}
+	
+	@Override
+	public abstract boolean equals(Object o);
+
+	@Override
+	public abstract int hashCode();
 }

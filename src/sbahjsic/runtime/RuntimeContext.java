@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import sbahjsic.runtime.type.SNull;
 
@@ -19,6 +20,11 @@ public final class RuntimeContext {
 	
 	public SValue pop() {
 		return stack.pop();
+	}
+	
+	public Optional<SValue> safePop() {
+		if(stack.isEmpty()) { return Optional.empty(); }
+		return Optional.of(pop());
 	}
 	
 	public void setMemory(String name, SValue value) {
