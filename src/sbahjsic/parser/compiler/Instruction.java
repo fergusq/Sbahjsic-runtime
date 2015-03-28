@@ -1,9 +1,13 @@
 package sbahjsic.parser.compiler;
 
+import sbahjsic.runtime.RuntimeContext;
+
 /** An instruction executed by the runtime.*/
 public abstract class Instruction {
 	
-	Instruction() {}
+	/** Executes this instruction.
+	 * @param runtime the runtime context*/
+	public abstract void execute(RuntimeContext runtime);
 	
 	@Override
 	public abstract String toString();
