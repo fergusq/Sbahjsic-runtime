@@ -1,6 +1,7 @@
 package sbahjsic.parser.compiler;
 
 import sbahjsic.runtime.RuntimeContext;
+import sbahjsic.runtime.type.SRef;
 
 final class PushVar extends Instruction {
 	
@@ -12,7 +13,7 @@ final class PushVar extends Instruction {
 
 	@Override
 	public void execute(RuntimeContext runtime) {
-		runtime.push(runtime.getMemory(value));
+		runtime.push(new SRef(value, runtime.getMemory(value)));
 	}
 
 	@Override

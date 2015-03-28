@@ -7,6 +7,7 @@ import sbahjsic.runtime.Operator;
 import sbahjsic.runtime.Operator.BiOperator;
 import sbahjsic.runtime.Operator.UnOperator;
 import sbahjsic.runtime.OperatorCallException;
+import sbahjsic.runtime.RuntimeContext;
 import sbahjsic.runtime.SValue;
 
 abstract class AbstractType implements SValue {
@@ -14,7 +15,7 @@ abstract class AbstractType implements SValue {
 	private final static Map<Class<? extends SValue>, Map<String, Operator>> OP_MAP = new HashMap<>();
 	
 	@Override
-	public SValue callOperator(String op, SValue... args) {
+	public SValue callOperator(RuntimeContext context, String op, SValue... args) {
 		Operator operator = operatorMap().get(op);
 		
 		if(operator == null) {
@@ -25,7 +26,7 @@ abstract class AbstractType implements SValue {
 		newArgs[0] = this;
 		System.arraycopy(args, 0, newArgs, 1, args.length);
 		
-		return operator.apply(newArgs);
+		return operator.apply(context, newArgs);
 	}
 	
 	public final Map<String, Operator> operatorMap() {

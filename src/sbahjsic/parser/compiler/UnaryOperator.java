@@ -12,7 +12,7 @@ final class UnaryOperator extends Instruction {
 	
 	@Override
 	public void execute(RuntimeContext runtime) {
-		runtime.push(runtime.pop().callOperator(op));
+		runtime.push(runtime.pop().callOperator(runtime, op));
 	}
 
 	@Override

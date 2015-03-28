@@ -20,7 +20,7 @@ final class FunctionCall extends Instruction {
 			arguments[i] = runtime.pop();
 		}
 		
-		runtime.push(called.call(arguments));
+		runtime.push(called.call(runtime, arguments));
 	}
 
 	@Override

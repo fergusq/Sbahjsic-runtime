@@ -5,10 +5,10 @@ public final class SInt extends AbstractType {
 	static {
 		SInt dummy = new SInt(0);
 		
-		dummy.registerBiOperator("+", (a1, a2) -> new SInt(a1.asInt() + a2.asInt()));
-		dummy.registerBiOperator("-", (a1, a2) -> new SInt(a1.asInt() - a2.asInt()));
-		dummy.registerBiOperator("*", (a1, a2) -> new SInt(a1.asInt() * a2.asInt()));
-		dummy.registerBiOperator("/", (a1, a2) -> new SInt(a1.asInt() / a2.asInt()));
+		dummy.registerBiOperator("+", (con, a1, a2) -> new SInt(a1.asInt() + a2.asInt()));
+		dummy.registerBiOperator("-", (con, a1, a2) -> new SInt(a1.asInt() - a2.asInt()));
+		dummy.registerBiOperator("*", (con, a1, a2) -> new SInt(a1.asInt() * a2.asInt()));
+		dummy.registerBiOperator("/", (con, a1, a2) -> new SInt(a1.asInt() / a2.asInt()));
 	}
 	
 	private final int value;

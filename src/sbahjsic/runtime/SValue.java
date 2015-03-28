@@ -4,15 +4,17 @@ package sbahjsic.runtime;
 public interface SValue {
 	
 	/** Calls an operator on this value with some arguments.
+	 * @param context the RuntimeContext
 	 * @param op the operator
 	 * @param args the arguments
 	 * @return the result of calling the operator with the arguments*/
-	public SValue callOperator(String op, SValue... args);
+	public SValue callOperator(RuntimeContext context, String op, SValue... args);
 	
 	/** Calls this value with some arguments.
+	 * @param context the RuntimeContext
 	 * @param args the arguments
 	 * @return the result of the call*/
-	default public SValue call(SValue... args) {
+	default public SValue call(RuntimeContext context, SValue... args) {
 		throw new CallException("Cannot call type " + typeName());
 	}
 	

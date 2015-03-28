@@ -16,7 +16,7 @@ final class BinaryOperator extends Instruction {
 		SValue called = runtime.pop();
 		SValue arg = runtime.pop();
 		
-		runtime.push(called.callOperator(op, arg));
+		runtime.push(called.callOperator(runtime, op, arg));
 	}
 
 	@Override
