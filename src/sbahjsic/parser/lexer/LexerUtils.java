@@ -5,7 +5,7 @@ import java.util.function.IntPredicate;
 
 final class LexerUtils {
 
-	final static char[] OP_CHARS = { '+', '-', '*', '/', '&', '|', '>', '<', '=', '!', '?' };
+	final static char[] OP_CHARS = { '+', '-', '*', '/', '&', '|', '>', '<', '=', '!', '?', '~' };
 	
 	final static char[] RESERVED_CHARS = { '(', ')', ',', '"', '\\', '$', ' ', '\t' };
 	

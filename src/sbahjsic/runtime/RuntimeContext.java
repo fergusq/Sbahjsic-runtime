@@ -2,7 +2,6 @@ package sbahjsic.runtime;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,7 +11,7 @@ public final class RuntimeContext {
 	
 	private final Deque<SValue> stack = new ArrayDeque<>();
 	
-	private final Map<String, SValue> memory = new HashMap<>();
+	private final Map<String, SValue> memory = DefaultFunctions.get();
 	
 	public void push(SValue value) {
 		stack.push(value);

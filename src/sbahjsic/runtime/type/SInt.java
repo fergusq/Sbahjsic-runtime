@@ -9,6 +9,16 @@ public final class SInt extends AbstractType {
 		dummy.registerBiOperator("-", (con, a1, a2) -> new SInt(a1.asInt() - a2.asInt()));
 		dummy.registerBiOperator("*", (con, a1, a2) -> new SInt(a1.asInt() * a2.asInt()));
 		dummy.registerBiOperator("/", (con, a1, a2) -> new SInt(a1.asInt() / a2.asInt()));
+		
+		dummy.registerBiOperator("**", (con, a1, a2) -> new SInt((int) Math.pow(a1.asInt(), a2.asInt())));
+		
+		dummy.registerBiOperator("&", (con, a1, a2) -> new SInt(a1.asInt() & a2.asInt()));
+		dummy.registerBiOperator("|", (con, a1, a2) -> new SInt(a1.asInt() | a2.asInt()));
+		dummy.registerBiOperator("^", (con, a1, a2) -> new SInt(a1.asInt() ^ a2.asInt()));
+		dummy.registerUnOperator("~", (con, arg) -> new SInt(~arg.asInt()));
+		
+		dummy.registerBiOperator("==", (con, a1, a2) -> a1.asInt() == a2.asInt() ? SBool.TRUE : SBool.FALSE);
+		dummy.registerBiOperator("!=", (con, a1, a2) -> a1.asInt() != a2.asInt() ? SBool.TRUE : SBool.FALSE);
 	}
 	
 	private final int value;

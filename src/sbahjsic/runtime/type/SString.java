@@ -1,6 +1,12 @@
 package sbahjsic.runtime.type;
 
 public final class SString extends AbstractType {
+	
+	static {
+		SString dummy = new SString(null);
+		
+		dummy.registerBiOperator("+", (con, a1, a2) -> new SString(a1.asString() + a2.asString()));
+	}
 
 	private final String value;
 	
