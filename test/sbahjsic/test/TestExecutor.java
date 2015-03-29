@@ -58,4 +58,14 @@ public class TestExecutor {
 	public void testBracketsControllingOrderOfOperations() {
 		assertEquals(20, lastValue("(2*6)+8").asInt());
 	}
+	
+	@Test
+	public void testFunctionCalls() {
+		assertEquals("int", lastValue("typeof(5)").asString());
+	}
+	
+	@Test
+	public void testNestedFunctionCalls() {
+		assertEquals("bool", lastValue("typeof(typeof(4) == \"int\")").asString());
+	}
 }

@@ -21,6 +21,11 @@ public final class SRef extends AbstractType {
 	}
 	
 	@Override
+	public SValue call(RuntimeContext context, SValue... args) {
+		return refersTo.call(context, args);
+	}
+	
+	@Override
 	public SValue callOperator(RuntimeContext context, String op, SValue... args) {
 		if(op.equals("=")) {
 			if(args.length != 1) {
@@ -34,7 +39,7 @@ public final class SRef extends AbstractType {
 	}
 
 	@Override
-	public String typeName() { return "ref"; }
+	public String typeName() { return refersTo.typeName(); }
 
 	@Override
 	public int asInt() { return refersTo.asInt(); }

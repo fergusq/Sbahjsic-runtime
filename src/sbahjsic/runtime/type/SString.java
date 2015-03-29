@@ -6,6 +6,12 @@ public final class SString extends AbstractType {
 		SString dummy = new SString(null);
 		
 		dummy.registerBiOperator("+", (con, a1, a2) -> new SString(a1.asString() + a2.asString()));
+		
+		dummy.registerBiOperator("==", (con, a1, a2) -> a1.asString().equals(a2.asString())
+				? SBool.TRUE : SBool.FALSE);
+		dummy.registerBiOperator("!=", (con, a1, a2) -> !a1.asString().equals(a2.asString())
+				? SBool.TRUE : SBool.FALSE);
+
 	}
 
 	private final String value;

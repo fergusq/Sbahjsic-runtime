@@ -32,12 +32,12 @@ public interface Operator {
 	}
 	
 	@FunctionalInterface
-	public interface UnOperator {
+	public static interface UnOperator {
 		SValue apply(RuntimeContext context, SValue caller);
 	}
 	
 	@FunctionalInterface
-	public interface BiOperator {
+	public static interface BiOperator {
 		SValue apply(RuntimeContext context, SValue caller, SValue arg);
 	}
 }
