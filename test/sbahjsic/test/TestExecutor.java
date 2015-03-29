@@ -15,6 +15,7 @@ public class TestExecutor {
 	
 	private SValue lastValue = null;
 	
+	@SuppressWarnings("resource")
 	private SValue lastValue(String... lines) {
 		new ExecutionPlan()
 				.setRunCode(true)

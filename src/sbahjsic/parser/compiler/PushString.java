@@ -18,7 +18,7 @@ final class PushString extends Instruction {
 
 	@Override
 	public String toString() {
-		return "pshstr " + value;
+		return "pshstr '" + value + "'";
 	}
 	
 	static String toRawString(String tokenString) {

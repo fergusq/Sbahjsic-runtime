@@ -9,7 +9,7 @@ public final class SRef extends AbstractType {
 	
 	private final static BiOperator ASSIGNMENT = (context, a1, a2) -> {
 		context.setMemory(((SRef) a1).address, a2);
-		return SNull.INSTANCE;
+		return SVoid.INSTANCE;
 	};
 	
 	private final String address;
@@ -32,8 +32,7 @@ public final class SRef extends AbstractType {
 				throw new OperatorCallException("Called with " + args.length + 
 						" arguments, expected 1");
 			}
-			ASSIGNMENT.apply(context, this, args[0]);
-			return SNull.INSTANCE;
+			return ASSIGNMENT.apply(context, this, args[0]);
 		}
 		return refersTo.callOperator(context, op, args);
 	}

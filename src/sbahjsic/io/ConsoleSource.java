@@ -12,5 +12,8 @@ public final class ConsoleSource implements ScriptSource {
 
 	@Override
 	public String nextLine() { return scanner.nextLine(); }
+
+	@Override
+	public void close() {}
 	
 }

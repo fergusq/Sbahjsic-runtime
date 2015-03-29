@@ -7,6 +7,7 @@ import sbahjsic.io.ScriptSource;
 import sbahjsic.parser.compiler.Instruction;
 import sbahjsic.parser.lexer.Lexer;
 import sbahjsic.parser.syntaxtree.SyntaxTree;
+import sbahjsic.runtime.type.SVoid;
 
 public final class ExecutionPlan {
 	
@@ -34,6 +35,7 @@ public final class ExecutionPlan {
 		
 		while(source.hasMore()) {
 			String line = source.nextLine();
+			if(line.trim().isEmpty()) { continue; }
 			
 			Instruction[] instructions = 
 					new SyntaxTree(Lexer.toTokens(line)).mainNode().toInstructions();
@@ -48,7 +50,7 @@ public final class ExecutionPlan {
 			
 			Optional<SValue> lineValue = context.safePop();
 			
-			if(lineValue.isPresent() && valConsumer != null)
+			if(valConsumer != null && lineValue.isPresent() && lineValue.get() != SVoid.INSTANCE)
 				valConsumer.accept(lineValue.get());
 		}
 	}

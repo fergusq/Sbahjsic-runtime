@@ -19,4 +19,7 @@ public final class MockSource implements ScriptSource {
 	public String nextLine() {
 		return lines[index++];
 	}
+
+	@Override
+	public void close() {}
 }

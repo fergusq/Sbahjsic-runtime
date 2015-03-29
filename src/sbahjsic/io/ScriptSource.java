@@ -1,7 +1,7 @@
 package sbahjsic.io;
 
 /** A source that provides Sbahjsic code.*/
-public interface ScriptSource {
+public interface ScriptSource extends AutoCloseable {
 	
 	/** Returns whether more lines exist.
 	 * @return whether more lines exist*/
@@ -11,4 +11,8 @@ public interface ScriptSource {
 	 * {@code true}. Otherwise throws some exception.
 	 * @return the next line*/
 	public String nextLine();
+	
+	/** Closes this {@code ScriptSource}.*/
+	@Override
+	public void close();
 }
