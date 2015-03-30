@@ -1,8 +1,6 @@
 package sbahjsic.core;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
 import sbahjsic.io.ConsoleSource;
 import sbahjsic.io.FileSource;
@@ -35,12 +33,8 @@ public final class Main {
 			for(String file : args.getFiles()) {
 				try {
 					execute(plan, new FileSource(new File(file)));
-				} catch(FileNotFoundException e) {
-					fail("File not found: " + file);
-				} catch(UnsupportedEncodingException e) {
-					fail("Cannot read " + file);
 				} catch(Exception e) {
-					fail(e.getMessage());
+					Errors.internalError(e);
 				}
 			}
 		}
@@ -49,17 +43,10 @@ public final class Main {
 	private static void execute(ExecutionPlan plan, ScriptSource source) {
 		try {
 			plan.execute(source);
-		} catch(SbahjsicException e) {
-			fail(e.getDescription());
 		} catch(Exception e) {
-			System.out.println(e.getClass().getSimpleName() + ": " + e.getMessage());
-			e.printStackTrace();
+			Errors.internalError(e);
 		} finally {
 			source.close();
 		}
-	}
-	
-	private static void fail(String message) {
-		System.out.println(message);
 	}
 }

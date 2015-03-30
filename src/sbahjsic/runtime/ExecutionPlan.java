@@ -3,6 +3,8 @@ package sbahjsic.runtime;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import sbahjsic.core.Errors;
+import sbahjsic.core.SbahjsicException;
 import sbahjsic.io.ScriptSource;
 import sbahjsic.parser.compiler.Instruction;
 import sbahjsic.parser.lexer.Lexer;
@@ -31,27 +33,33 @@ public final class ExecutionPlan {
 	}
 	
 	public void execute(ScriptSource source) {
-		RuntimeContext context = new RuntimeContext();
-		
-		while(source.hasMore()) {
-			String line = source.nextLine();
-			if(line.trim().isEmpty()) { continue; }
+		try {
+			RuntimeContext context = new RuntimeContext();
 			
-			Instruction[] instructions = 
-					new SyntaxTree(Lexer.toTokens(line)).mainNode().toInstructions();
-			
-			for(Instruction ins : instructions) {
-				if(runCode)
-					ins.execute(context);
+			while(source.hasMore()) {
+				String line = source.nextLine();
+				if(line.trim().isEmpty()) { continue; }
 				
-				if(instConsumer != null)
-					instConsumer.accept(ins);
+				Instruction[] instructions = 
+						new SyntaxTree(Lexer.toTokens(line)).mainNode().toInstructions();
+				
+				for(Instruction ins : instructions) {
+					if(runCode)
+						ins.execute(context);
+					
+					if(instConsumer != null)
+						instConsumer.accept(ins);
+				}
+				
+				Optional<SValue> lineValue = context.safePop();
+				
+				if(valConsumer != null && lineValue.isPresent() && lineValue.get() != SVoid.INSTANCE)
+					valConsumer.accept(lineValue.get());
 			}
-			
-			Optional<SValue> lineValue = context.safePop();
-			
-			if(valConsumer != null && lineValue.isPresent() && lineValue.get() != SVoid.INSTANCE)
-				valConsumer.accept(lineValue.get());
+		} catch(SbahjsicException e) {
+			Errors.error(e);
+		} catch(Exception e) {
+			Errors.internalError(e);
 		}
 	}
 }

@@ -3,6 +3,8 @@ package sbahjsic.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import sbahjsic.core.Errors.Warning;
+
 /** Represents data parsed from the program arguments.*/
 public final class Arguments {
 	
@@ -26,6 +28,9 @@ public final class Arguments {
 			if(arg.equals("-d")) { 
 				arguments.debug = true;
 			} else {
+				if(!arg.endsWith(".sb")) {
+					Errors.warn(Warning.NONSTANDARD_FILE_EXTENSION, arg);
+				}
 				arguments.files.add(arg);
 			}
 		}
