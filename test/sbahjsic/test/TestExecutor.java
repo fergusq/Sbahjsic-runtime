@@ -5,8 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import sbahjsic.io.MockSource;
-import sbahjsic.runtime.ExecutionPlan;
-import sbahjsic.runtime.OperatorCallException;
+import sbahjsic.runtime.ExecutionEnvironment;
 import sbahjsic.runtime.SValue;
 import sbahjsic.runtime.type.SInt;
 import sbahjsic.runtime.type.SString;
@@ -17,9 +16,9 @@ public class TestExecutor {
 	
 	@SuppressWarnings("resource")
 	private SValue lastValue(String... lines) {
-		new ExecutionPlan()
+		new ExecutionEnvironment()
 				.setRunCode(true)
-				.forLineValues(s -> { lastValue = s; })
+				.forLastValue(s -> { lastValue = s; })
 				.execute(new MockSource(lines));
 		
 		return lastValue;
@@ -43,11 +42,6 @@ public class TestExecutor {
 	@Test
 	public void testAssigningVariables() {
 		assertEquals(4, lastValue("x = 4", "x").asInt());
-	}
-	
-	@Test(expected=OperatorCallException.class)
-	public void testCallWithWrongNumberOfArguments() {
-		lastValue("+5");
 	}
 	
 	@Test

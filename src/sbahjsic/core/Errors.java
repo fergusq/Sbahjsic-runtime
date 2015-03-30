@@ -29,7 +29,8 @@ public final class Errors {
 		if(thr instanceof SbahjsicException) {
 			error((SbahjsicException) thr);
 		}
-		System.err.println("Internal error: " + thr);
+		System.err.println("Internal error: ");
+		thr.printStackTrace(System.err);
 		System.exit(1);
 	}
 	

@@ -13,6 +13,8 @@ public final class RuntimeContext {
 	
 	private final Map<String, SValue> memory = DefaultFunctions.get();
 	
+	private int line;
+	
 	public void push(SValue value) {
 		stack.push(value);
 	}
@@ -36,4 +38,10 @@ public final class RuntimeContext {
 		}
 		return memory.get(name);
 	}
+	
+	public void setLineNumber(int num) {
+		line = num;
+	}
+	
+	public int getLineNumber() { return line; }
 }

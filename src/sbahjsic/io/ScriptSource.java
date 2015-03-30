@@ -12,6 +12,10 @@ public interface ScriptSource extends AutoCloseable {
 	 * @return the next line*/
 	public String nextLine();
 	
+	/** Returns a string describing this {@code ScriptSource}.
+	 * @return the name of this {@code ScriptSource}*/
+	public String getName();
+	
 	/** Closes this {@code ScriptSource}.*/
 	@Override
 	public void close();

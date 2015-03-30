@@ -6,14 +6,23 @@ import java.util.Scanner;
 public final class ConsoleSource implements ScriptSource {
 	
 	private final Scanner scanner = new Scanner(System.in);
+	private boolean called = false;
 
 	@Override
-	public boolean hasMore() { return true; }
+	public boolean hasMore() { return !called; }
 
 	@Override
-	public String nextLine() { return scanner.nextLine(); }
+	public String nextLine() {
+		called = true;
+		return scanner.nextLine(); 
+	}
 
 	@Override
 	public void close() {}
+
+	@Override
+	public String getName() {
+		return "Console";
+	}
 	
 }

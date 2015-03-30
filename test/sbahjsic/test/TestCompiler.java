@@ -40,7 +40,7 @@ public class TestCompiler {
 	
 	@Test
 	public void testCompilingSingleString() {
-		assertEquals(compile("\"foo\""), "pshstr foo");
+		assertEquals(compile("\"foo\""), "pshstr 'foo'");
 	}
 	
 	@Test

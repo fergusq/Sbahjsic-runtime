@@ -22,4 +22,9 @@ public final class MockSource implements ScriptSource {
 
 	@Override
 	public void close() {}
+
+	@Override
+	public String getName() {
+		return "Mock";
+	}
 }

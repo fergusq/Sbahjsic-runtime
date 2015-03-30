@@ -44,5 +44,10 @@ public final class FileSource implements ScriptSource {
 			throw new RuntimeException("Error closing " + file.getName());
 		}
 	}
+
+	@Override
+	public String getName() {
+		return file.getName();
+	}
 	
 }

@@ -11,12 +11,11 @@ final class Parser {
 	private List<Token> tokens;
 	
 	Parser(List<Token> tokens) {
-		if(tokens.isEmpty()) { throw new IllegalArgumentException(); }
 		this.tokens = tokens;
 	}
 	
 	Node parse() {
-		return parse(tokens);
+		return tokens.isEmpty() ? new EmptyNode() : parse(tokens);
 	}
 	
 	Node parse(List<Token> tokens) {
