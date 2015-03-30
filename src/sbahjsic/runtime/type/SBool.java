@@ -13,8 +13,12 @@ public final class SBool extends AbstractType {
 		TRUE.registerBiOperator("|", (con, a1, a2) -> a1.asBool() || a2.asBool() ? TRUE : FALSE);
 		TRUE.registerBiOperator("^", (con, a1, a2) -> a1.asBool() ^ a2.asBool() ? TRUE : FALSE);
 		
-		TRUE.registerBiOperator("==", (con, a1, a2) -> a1.asBool() == a2.asBool() ? TRUE : FALSE);
-		TRUE.registerBiOperator("!=", (con, a1, a2) -> a1.asBool() != a2.asBool() ? TRUE : FALSE);
+		TRUE.registerBiOperator("==", (con, a1, a2) -> 
+				(a1.asBool() == a2.asBool()) ||
+				(a1.asString().equalsIgnoreCase(a2.asString())) ? TRUE : FALSE);
+		TRUE.registerBiOperator("!=", (con, a1, a2) -> 
+				(a1.asBool() != a2.asBool()) &&
+				(!a1.asString().equalsIgnoreCase(a2.asString())) ? TRUE : FALSE);
 	}
 
 	@Override
