@@ -26,6 +26,8 @@ final class Parser {
 			
 			if(string.equals("if")) {
 				return new IfNode(parseValue(tokens.subList(1, tokens.size())));
+			} else if(string.equals("else") && tokens.size() == 1) {
+				return ElseNode.INSTANCE;
 			} else if(string.equals("endif") && tokens.size() == 1) {
 				return new EndIfNode();
 			}

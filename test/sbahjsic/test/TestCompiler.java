@@ -82,4 +82,9 @@ public class TestCompiler {
 	public void testCompilingEndif() {
 		assertEquals(compile("endif"), "endif");
 	}
+	
+	@Test
+	public void testCompilingElse() {
+		assertEquals(compile("else"), "else");
+	}
 }

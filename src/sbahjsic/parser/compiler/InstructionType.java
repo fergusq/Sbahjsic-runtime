@@ -6,6 +6,7 @@ public enum InstructionType {
 	UNARY_OPERATOR,
 	FUNCTION_CALL,
 	IF,
+	ELSE,
 	ENDIF,
 	LINE_NUMBER,
 	PUSH_INT,

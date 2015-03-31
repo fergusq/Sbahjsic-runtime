@@ -49,6 +49,11 @@ public class TestParser {
 	}
 	
 	@Test
+	public void testParsingElse() {
+		assertEquals(parse("else"), "ELSE");
+	}
+	
+	@Test
 	public void testImplictMultiplication() {
 		assertEquals(parse("5 x"), "*{5, x}");
 	}

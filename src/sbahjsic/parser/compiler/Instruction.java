@@ -7,6 +7,7 @@ public abstract class Instruction {
 	
 	public final static InstructionType[] CONTROL_FLOW = new InstructionType[] {
 		InstructionType.IF,
+		InstructionType.ELSE,
 		InstructionType.ENDIF,
 		InstructionType.LINE_NUMBER
 	};
@@ -77,5 +78,11 @@ public abstract class Instruction {
 	 * @return an appropriate instruction*/
 	public static Instruction endIf() {
 		return EndIf.INSTANCE;
+	}
+	
+	/** Switches whether instructions of an if block are executed.
+	 * @return an appropriate instruction*/
+	public static Instruction ifElse() {
+		return Else.INSTANCE;
 	}
 }

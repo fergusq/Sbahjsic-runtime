@@ -10,5 +10,6 @@ public enum NodeType {
 	UNARY_OPERATOR,
 	BINARY_OPERATOR,
 	IF_NODE,
+	ELSE_NODE,
 	ENDIF_NODE
 }

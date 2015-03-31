@@ -9,7 +9,7 @@ import sbahjsic.parser.compiler.InstructionType;
 public final class Scope {
 	
 	private final String name;
-	private final boolean isExecuted;
+	private boolean isExecuted;
 	private final List<InstructionType> permittedInstructions;
 	
 	private Scope(String name, boolean isExecuted, InstructionType[] permitted) {
@@ -24,6 +24,11 @@ public final class Scope {
 	 * @return whether instructions in this scope are executed*/
 	public boolean isExecuted() {
 		return isExecuted;
+	}
+	
+	/** Switches whether instructions in this scope are executed.*/
+	public void switchExecution() {
+		isExecuted = !isExecuted;
 	}
 	
 	/** Returns instructions executed regardless of {@code isExecuted()}.

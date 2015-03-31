@@ -102,4 +102,26 @@ public class TestExecutor {
 				"endif",
 				"z").asInt());
 	}
+	
+	@Test
+	public void testElse() {
+		assertEquals(3, lastValue("x = 4",
+				"if false",
+				"x = 7",
+				"else",
+				"x = 3",
+				"endif",
+				"x").asInt());
+	}
+	
+	@Test
+	public void testMultipleElse() {
+		assertEquals(4, lastValue("x = 7",
+				"if true",
+				"else",
+				"else",
+				"x = 4",
+				"endif",
+				"x").asInt());
+	}
 }
