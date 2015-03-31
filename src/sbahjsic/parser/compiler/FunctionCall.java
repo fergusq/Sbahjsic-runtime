@@ -27,4 +27,9 @@ final class FunctionCall extends Instruction {
 	public String toString() {
 		return "fcall " + args;
 	}
+
+	@Override
+	public InstructionType type() {
+		return InstructionType.FUNCTION_CALL;
+	}
 }

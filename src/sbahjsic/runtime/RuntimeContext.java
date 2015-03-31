@@ -13,6 +13,8 @@ public final class RuntimeContext {
 	
 	private final Map<String, SValue> memory = DefaultFunctions.get();
 	
+	private final ScopeStack scopes = new ScopeStack();
+	
 	private int line;
 	
 	public void push(SValue value) {
@@ -44,4 +46,6 @@ public final class RuntimeContext {
 	}
 	
 	public int getLineNumber() { return line; }
+	
+	public ScopeStack scopeStack() { return scopes; }
 }

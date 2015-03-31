@@ -24,4 +24,9 @@ final class PushString extends Instruction {
 	static String toRawString(String tokenString) {
 		return tokenString.substring(1, tokenString.length()-1).replace("\\\"", "\"");
 	}
+
+	@Override
+	public InstructionType type() {
+		return InstructionType.PUSH_STRING;
+	}
 }

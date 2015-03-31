@@ -19,6 +19,7 @@ public final class ExecutionEnvironment {
 	private Consumer<Instruction> instConsumer = null;
 	private Consumer<SValue> valConsumer = null;
 	private boolean runCode = true;
+	private boolean saveLineNumbers = true;
 	private final RuntimeContext context = new RuntimeContext();
 	
 	public ExecutionEnvironment forInstructions(Consumer<Instruction> consumer) {
@@ -36,6 +37,11 @@ public final class ExecutionEnvironment {
 		return this;
 	}
 	
+	public ExecutionEnvironment setSaveLineNumbers(boolean saveLineNums) {
+		saveLineNumbers = saveLineNums;
+		return this;
+	}
+	
 	public void execute(ScriptSource source) {
 		int lineNumber = 0;
 		
@@ -49,7 +55,9 @@ public final class ExecutionEnvironment {
 				Instruction[] instrs = 
 						new SyntaxTree(Lexer.toTokens(line)).mainNode().toInstructions();
 				
-				instrs = addLineNumber(instrs, lineNumber);
+				if(saveLineNumbers) {
+					instrs = addLineNumber(instrs, lineNumber);
+				}
 				
 				instructions.add(instrs);
 			}
@@ -87,7 +95,7 @@ public final class ExecutionEnvironment {
 	public Optional<SValue> execute(String source, Instruction[] instructions) {
 		try {
 			for(Instruction ins : instructions) {
-				if(runCode)
+				if(canBeRun(ins))
 					ins.execute(context);
 				
 				if(instConsumer != null)
@@ -108,5 +116,11 @@ public final class ExecutionEnvironment {
 		newIns[0] = new LineNumber(line);
 		System.arraycopy(ins, 0, newIns, 1, ins.length);
 		return newIns;
+	}
+	
+	private boolean canBeRun(Instruction ins) {
+		Scope top = context.scopeStack().top();
+		return runCode && (top.isExecuted() || 
+				top.getPermittedInstructions().contains(ins.type()));
 	}
 }

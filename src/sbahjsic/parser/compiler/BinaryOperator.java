@@ -23,4 +23,9 @@ final class BinaryOperator extends Instruction {
 	public String toString() {
 		return "biop " + op;
 	}
+
+	@Override
+	public InstructionType type() {
+		return InstructionType.BINARY_OPERATOR;
+	}
 }

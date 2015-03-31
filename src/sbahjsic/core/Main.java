@@ -24,6 +24,8 @@ public final class Main {
 						i -> System.out.println(i) : 
 						i -> {})
 						
+				.setSaveLineNumbers(args.saveLineNumbers())
+						
 				.setRunCode(!args.isDebugMode());
 		
 		if(args.getFiles().isEmpty()) {

@@ -19,4 +19,9 @@ final class UnaryOperator extends Instruction {
 	public String toString() {
 		return "uop " + op;
 	}
+
+	@Override
+	public InstructionType type() {
+		return InstructionType.UNARY_OPERATOR;
+	}
 }

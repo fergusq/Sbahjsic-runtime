@@ -20,4 +20,9 @@ final class PushVar extends Instruction {
 	public String toString() {
 		return "pshvar " + value;
 	}
+	
+	@Override
+	public InstructionType type() {
+		return InstructionType.PUSH_VAR;
+	}
 }

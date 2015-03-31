@@ -5,12 +5,22 @@ import sbahjsic.runtime.RuntimeContext;
 /** An instruction executed by the runtime.*/
 public abstract class Instruction {
 	
+	public final static InstructionType[] CONTROL_FLOW = new InstructionType[] {
+		InstructionType.IF,
+		InstructionType.ENDIF,
+		InstructionType.LINE_NUMBER
+	};
+	
 	/** Executes this instruction.
 	 * @param runtime the runtime context*/
 	public abstract void execute(RuntimeContext runtime);
 	
 	@Override
 	public abstract String toString();
+	
+	/** Returns the type of this instruction.
+	 * @return the type of this instruction*/
+	public abstract InstructionType type();
 	
 	/** Pushes a single integer into the stack.
 	 * @param value the integer to push

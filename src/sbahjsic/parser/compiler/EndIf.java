@@ -8,12 +8,16 @@ final class EndIf extends Instruction {
 	
 	@Override
 	public void execute(RuntimeContext runtime) {
-		throw new AssertionError("NYI");
+		runtime.scopeStack().removeTop();
 	}
 
 	@Override
 	public String toString() {
 		return "endif";
 	}
-	
+
+	@Override
+	public InstructionType type() {
+		return InstructionType.ENDIF;
+	}
 }

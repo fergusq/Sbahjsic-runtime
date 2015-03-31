@@ -20,4 +20,9 @@ final class PushInt extends Instruction {
 	public String toString() {
 		return "pshint " + value;
 	}
+
+	@Override
+	public InstructionType type() {
+		return InstructionType.PUSH_INT;
+	}
 }

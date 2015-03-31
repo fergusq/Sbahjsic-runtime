@@ -19,5 +19,9 @@ public final class LineNumber extends Instruction {
 	public String toString() {
 		return "line " + line;
 	}
-	
+
+	@Override
+	public InstructionType type() {
+		return InstructionType.LINE_NUMBER;
+	}
 }

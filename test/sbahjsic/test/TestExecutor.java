@@ -17,6 +17,7 @@ public class TestExecutor {
 	@SuppressWarnings("resource")
 	private SValue lastValue(String... lines) {
 		new ExecutionEnvironment()
+				.setSaveLineNumbers(false)
 				.setRunCode(true)
 				.forLastValue(s -> { lastValue = s; })
 				.execute(new MockSource(lines));
@@ -62,5 +63,43 @@ public class TestExecutor {
 	@Test
 	public void testNestedFunctionCalls() {
 		assertEquals("bool", lastValue("typeof(typeof(4) == \"int\")").asString());
+	}
+	
+	@Test
+	public void testTrueIfStatements() {
+		assertEquals(5, lastValue("if true",
+				"x = 5",
+				"endif",
+				"x").asInt());
+	}
+	
+	@Test
+	public void testFalseIfStatements() {
+		assertEquals(6, lastValue("g = 6",
+				"if false",
+				"g = 35",
+				"endif",
+				"g").asInt());
+	}
+	
+	@Test
+	public void testNestedTrueIfStatements() {
+		assertEquals(2, lastValue("if true",
+				"if true",
+				"u = 2",
+				"endif",
+				"endif",
+				"u").asInt());
+	}
+	
+	@Test
+	public void testNestedFalseIfStatements() {
+		assertEquals(4, lastValue("z = 4",
+				"if false",
+				"if true",
+				"z = 6",
+				"endif",
+				"endif",
+				"z").asInt());
 	}
 }
