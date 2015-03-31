@@ -120,7 +120,7 @@ public final class ExecutionEnvironment {
 	
 	private boolean canBeRun(Instruction ins) {
 		Scope top = context.scopeStack().top();
-		return runCode && (top.isExecuted() || 
+		return runCode && (context.scopeStack().executeInstructions() || 
 				top.getPermittedInstructions().contains(ins.type()));
 	}
 }

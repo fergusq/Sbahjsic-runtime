@@ -28,4 +28,14 @@ public final class ScopeStack {
 		}
 		stack.pop();
 	}
+	
+	public boolean executeInstructions() {
+		boolean negativeFound = false;
+		for(Scope scope : stack) {
+			if(!scope.isExecuted()) {
+				negativeFound = true;
+			}
+		}
+		return !negativeFound;
+	}
 }

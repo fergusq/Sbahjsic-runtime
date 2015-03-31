@@ -124,4 +124,16 @@ public class TestExecutor {
 				"endif",
 				"x").asInt());
 	}
+	
+	@Test
+	public void testInternalElse() {
+		assertEquals(2, lastValue("x = 2",
+				"if false",
+				"if false",
+				"else",
+				"x = 3",
+				"endif",
+				"endif",
+				"x").asInt());
+	}
 }
