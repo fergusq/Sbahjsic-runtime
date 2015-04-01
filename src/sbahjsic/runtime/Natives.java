@@ -9,13 +9,18 @@ public final class Natives {
 	private Natives() { throw new AssertionError(); }
 	
 	public static SValue load(String resource) {
-		System.out.println("Loading " + resource);
 		switch(resource) {
 			
-			case "sin":
+			case "ns":
 				return new SFunc((con, args) -> {
-					SFunc.requireArguments(1, args.length);
-					return new SString("" + Math.sin(args[0].asDouble()));
+					SFunc.requireArguments(0, args.length);
+					return new SString("" + System.nanoTime());
+				});
+				
+			case "ms":
+				return new SFunc((con, args) -> {
+					SFunc.requireArguments(0, args.length);
+					return new SString("" + System.currentTimeMillis());
 				});
 				
 			default:

@@ -146,6 +146,6 @@ public class TestExecutor {
 	
 	@Test
 	public void testLoadingRealNativeDeclarations() {
-		assertTrue(lastValue("native sin", "sin").typeName().equals("func"));
+		assertTrue(lastValue("native ms", "ms").typeName().equals("func"));
 	}
 }
