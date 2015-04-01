@@ -30,6 +30,8 @@ final class Parser {
 				return ElseNode.INSTANCE;
 			} else if(string.equals("endif") && tokens.size() == 1) {
 				return new EndIfNode();
+			} else if(string.equals("native") && tokens.size() == 2) {
+				return new NativeNode(tokens.get(1).string());
 			}
 		}
 		

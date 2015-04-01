@@ -87,4 +87,9 @@ public class TestCompiler {
 	public void testCompilingElse() {
 		assertEquals(compile("else"), "else");
 	}
+	
+	@Test
+	public void testCompilingNativeDeclarations() {
+		assertEquals(compile("native bar"), "natdec 'bar'");
+	}
 }

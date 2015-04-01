@@ -112,4 +112,9 @@ public class TestParser {
 	public void testAdjacentFunctionCalls() {
 		assertEquals(parse("f(x) + g(y, z)"), "+{f{x}, g{y, z}}");
 	}
+	
+	@Test
+	public void testParsingNativeDeclarations() {
+		assertEquals(parse("native foo"), "NATIVE{foo}");
+	}
 }

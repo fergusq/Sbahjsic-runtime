@@ -52,8 +52,13 @@ public final class ExecutionEnvironment {
 				String line = source.nextLine();
 				lineNumber++;
 				
-				Instruction[] instrs = 
-						new SyntaxTree(Lexer.toTokens(line)).mainNode().toInstructions();
+				Instruction[] instrs;
+				try {
+					instrs = new SyntaxTree(Lexer.toTokens(line)).mainNode().toInstructions();
+				} catch(SbahjsicException e) {
+					e.addStackLevel(lineNumber, source.getName());
+					throw e;
+				}
 				
 				if(saveLineNumbers) {
 					instrs = addLineNumber(instrs, lineNumber);
@@ -74,19 +79,14 @@ public final class ExecutionEnvironment {
 				lastIndex += ins.length;
 			}
 			
-			try {
-				Optional<SValue> result = execute(source.getName(), allInstructions);
-				
-				if(valConsumer != null && result.isPresent() && !(result.get() instanceof SVoid)) {
-					valConsumer.accept(result.get());
-				}
-			} catch(SbahjsicException e) {
-				Errors.error(e);
+			Optional<SValue> result = execute(source.getName(), allInstructions);
+			
+			if(valConsumer != null && result.isPresent() && !(result.get() instanceof SVoid)) {
+				valConsumer.accept(result.get());
 			}
 			
 		} catch(SbahjsicException e) {
-			e.addStackLevel(lineNumber, source.getName());
-			Errors.error(e);
+			throw e;
 		} catch(Exception e) {
 			Errors.internalError(e);
 		}
@@ -104,8 +104,6 @@ public final class ExecutionEnvironment {
 		} catch(SbahjsicException e) {
 			e.addStackLevel(context.getLineNumber(), source);
 			throw e;
-		} catch(Exception e) {
-			Errors.internalError(e);
 		}
 		
 		return context.safePop();

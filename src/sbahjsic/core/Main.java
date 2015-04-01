@@ -46,6 +46,8 @@ public final class Main {
 	private static void execute(ExecutionEnvironment plan, ScriptSource source) {
 		try {
 			plan.execute(source);
+		} catch(SbahjsicException e) {
+			Errors.error(e);
 		} catch(Exception e) {
 			Errors.internalError(e);
 		} finally {

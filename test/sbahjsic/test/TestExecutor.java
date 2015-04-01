@@ -1,12 +1,14 @@
 package sbahjsic.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import sbahjsic.io.MockSource;
 import sbahjsic.runtime.ExecutionEnvironment;
 import sbahjsic.runtime.SValue;
+import sbahjsic.runtime.UnknownNativeException;
 import sbahjsic.runtime.type.SInt;
 import sbahjsic.runtime.type.SString;
 
@@ -135,5 +137,15 @@ public class TestExecutor {
 				"endif",
 				"endif",
 				"x").asInt());
+	}
+	
+	@Test(expected=UnknownNativeException.class)
+	public void testLoadingUnknownNative() {
+		lastValue("native doesnotexist");
+	}
+	
+	@Test
+	public void testLoadingRealNativeDeclarations() {
+		assertTrue(lastValue("native sin", "sin").typeName().equals("func"));
 	}
 }

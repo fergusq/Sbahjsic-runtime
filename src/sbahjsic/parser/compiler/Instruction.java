@@ -85,4 +85,11 @@ public abstract class Instruction {
 	public static Instruction ifElse() {
 		return Else.INSTANCE;
 	}
+	
+	/** Declares a native resource.
+	 * @param resource the native resource
+	 * @return an appropriate instruction*/
+	public static Instruction nativeDeclaration(String resource) {
+		return new Native(resource);
+	}
 }
