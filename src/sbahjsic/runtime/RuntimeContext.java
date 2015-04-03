@@ -28,7 +28,8 @@ public final class RuntimeContext {
 	 * empty stacks.
 	 * @return the popped value*/
 	public SValue pop() {
-		return stack.pop();
+		SValue val = stack.pop();
+		return val;
 	}
 	
 	/** Pops the top value of the stack if it exists. Otherwise

@@ -97,4 +97,15 @@ public class TestCompiler {
 	public void testCompilingImports() {
 		assertEquals(compile("import foo"), "import 'foo'");
 	}
+	
+	@Test
+	public void testCompilingWhileStatement() {
+		assertEquals(compile("while x"), "pshvar x"
+				+ "\nwhile 1");
+	}
+	
+	@Test
+	public void testCompilingEndWhileStatement() {
+		assertEquals(compile("endwhile"), "endwhile");
+	}
 }

@@ -1,12 +1,18 @@
 package sbahjsic.runtime;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
+import java.util.function.Consumer;
 
 import sbahjsic.runtime.Scope.ScopeBuilder;
 
 /** A stack of scopes.*/
 public final class ScopeStack {
+	
+	private final List<Consumer<Scope>> newListeners = new ArrayList<>();
+	private final List<Consumer<Scope>> endListeners = new ArrayList<>();
 	
 	private final Deque<Scope> stack = new ArrayDeque<>();
 	
@@ -16,6 +22,9 @@ public final class ScopeStack {
 	
 	public void push(Scope scope) {
 		stack.push(scope);
+		for(Consumer<Scope> consumer : newListeners) {
+			consumer.accept(scope);
+		}
 	}
 	
 	public Scope top() {
@@ -26,7 +35,10 @@ public final class ScopeStack {
 		if(stack.size() <= 1) {
 			throw new ScopeException("Last scope exited");
 		}
-		stack.pop();
+		Scope scope = stack.pop();
+		for(Consumer<Scope> consumer : endListeners) {
+			consumer.accept(scope);
+		}
 	}
 	
 	public boolean executeInstructions() {
@@ -37,5 +49,21 @@ public final class ScopeStack {
 			}
 		}
 		return !negativeFound;
+	}
+	
+	public void addNewScopeListener(Consumer<Scope> listener) {
+		newListeners.add(listener);
+	}
+	
+	public void removeNewScopeListener(Consumer<Scope> listener) {
+		newListeners.remove(listener);
+	}
+	
+	public void addScopeEndListener(Consumer<Scope> listener) {
+		endListeners.add(listener);
+	}
+	
+	public void removeScopeEndListener(Consumer<Scope> listener) {
+		endListeners.remove(listener);
 	}
 }

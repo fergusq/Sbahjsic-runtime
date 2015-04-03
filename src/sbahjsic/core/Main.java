@@ -33,7 +33,11 @@ public final class Main {
 		
 		if(args.getFiles().isEmpty()) {
 			while(true) {
-				execute(plan, new ConsoleSource());
+				try(ConsoleSource cs = new ConsoleSource()) {
+					while(cs.hasMore()) {
+						execute(plan, cs);
+					}
+				}
 			}
 		}
 		

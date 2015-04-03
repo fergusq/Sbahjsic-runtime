@@ -6,15 +6,15 @@ import java.util.List;
 import sbahjsic.parser.lexer.Token;
 import sbahjsic.parser.lexer.TokenType;
 
-final class Parser {
+public final class Parser {
 	
 	private List<Token> tokens;
 	
-	Parser(List<Token> tokens) {
+	public Parser(List<Token> tokens) {
 		this.tokens = tokens;
 	}
 	
-	Node parse() {
+	public Node parse() {
 		return tokens.isEmpty() ? new EmptyNode() : parse(tokens);
 	}
 	
@@ -34,6 +34,10 @@ final class Parser {
 				return new NativeNode(tokens.get(1).string());
 			} else if(string.equals("import") && tokens.size() == 2) {
 				return new ImportNode(tokens.get(1).string());
+			} else if(string.equals("while")) {
+				return new WhileNode(parseValue(tokens.subList(1, tokens.size())));
+			} else if(string.equals("endwhile") && tokens.size() == 1) {
+				return EndWhileNode.INSTANCE;
 			}
 		}
 		

@@ -148,4 +148,35 @@ public class TestExecutor {
 	public void testLoadingRealNativeDeclarations() {
 		assertTrue(lastValue("native ms", "ms").typeName().equals("func"));
 	}
+	
+	@Test
+	public void testWhile() {
+		assertEquals(10, lastValue("x = 0",
+				"while x != 10",
+				"x = x + 1",
+				"endwhile",
+				"x").asInt());
+	}
+	
+	@Test
+	public void testInternalWhile() {
+		assertEquals(2, lastValue("a=0",
+				"while a != 2",
+				"a = a + 1",
+				"x = 0",
+				"while x != 3",
+				"x = x + 1",
+				"endwhile",
+				"endwhile",
+				"a").asInt());
+	}
+	
+	@Test
+	public void testFalseWhile() {
+		assertEquals(3, lastValue("t = 3",
+				"while false",
+				"do some bullshit",
+				"endwhile",
+				"t").asInt());
+	}
 }

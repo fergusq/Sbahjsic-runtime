@@ -22,6 +22,7 @@ public final class ExecutionEnvironment {
 	private boolean runCode = true;
 	private boolean saveLineNumbers = true;
 	private final RuntimeContext context;
+	private int index = 0;
 	
 	/** Creates an instance.*/
 	public ExecutionEnvironment() {
@@ -123,20 +124,44 @@ public final class ExecutionEnvironment {
 	 * @param instructions the instructions
 	 * @return the (possible) last value in the stack*/
 	public Optional<SValue> execute(String source, Instruction[] instructions) {
+		Consumer<Scope> newScopeListener = s -> {
+			s.setStart(index);
+		};
+		
+		Consumer<Scope> scopeEndListener = s -> {
+			if(s.loops() && s.isExecuted()) {
+				if(!context.scopeStack().top().loops()) {
+					index = s.getStart() - s.getJumpsBack() -1;
+				}
+			}
+		};
+		
+		context.scopeStack().addNewScopeListener(newScopeListener);
+		context.scopeStack().addScopeEndListener(scopeEndListener);
+		
 		try {
-			for(Instruction ins : instructions) {
-				if(canBeRun(ins))
-					ins.execute(context);
+			for(index = 0; index < instructions.length; index++) {
+				Instruction ins = instructions[index];
 				
-				if(instConsumer != null)
-					instConsumer.accept(ins);
+				executeInstruction(ins);
 			}
 		} catch(SbahjsicException e) {
 			e.addStackLevel(context.getLineNumber(), source);
 			throw e;
+		} finally {
+			context.scopeStack().removeNewScopeListener(newScopeListener);
+			context.scopeStack().removeScopeEndListener(scopeEndListener);
 		}
 		
 		return context.safePop();
+	}
+	
+	private void executeInstruction(Instruction ins) {
+		if(canBeRun(ins))
+			ins.execute(context);
+		
+		if(instConsumer != null)
+			instConsumer.accept(ins);
 	}
 	
 	private static Instruction[] addLineNumber(Instruction[] ins, int line) {

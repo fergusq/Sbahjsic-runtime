@@ -13,5 +13,7 @@ public enum InstructionType {
 	PUSH_STRING,
 	PUSH_VAR,
 	NATIVE,
-	IMPORT;
+	IMPORT,
+	WHILE,
+	ENDWHILE;
 }

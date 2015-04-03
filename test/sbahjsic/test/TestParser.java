@@ -122,4 +122,14 @@ public class TestParser {
 	public void testParsingImportStatements() {
 		assertEquals(parse("import foo"), "IMPORT{foo}");
 	}
+	
+	@Test
+	public void testParsingWhileStatements() {
+		assertEquals(parse("while 1 + 1"), "WHILE{+{1, 1}}");
+	}
+	
+	@Test
+	public void testParsingEndWhileStatement() {
+		assertEquals(parse("endwhile"), "ENDWHILE");
+	}
 }

@@ -10,11 +10,16 @@ public final class Scope {
 	
 	private final String name;
 	private boolean isExecuted;
+	private boolean loops;
+	private final int jumpsBack;
 	private final List<InstructionType> permittedInstructions;
+	private int start = -1;
 	
-	private Scope(String name, boolean isExecuted, InstructionType[] permitted) {
+	private Scope(String name, boolean isExecuted, boolean loops, int jumpsBack, InstructionType[] permitted) {
 		this.name = name;
 		this.isExecuted = isExecuted;
+		this.loops = loops;
+		this.jumpsBack = jumpsBack;
 		permittedInstructions = new ArrayList<>();
 		for(InstructionType ins : permitted)
 			permittedInstructions.add(ins);
@@ -24,6 +29,12 @@ public final class Scope {
 	 * @return whether instructions in this scope are executed*/
 	public boolean isExecuted() {
 		return isExecuted;
+	}
+	
+	/** Returns whether this scope loops.
+	 * @return whether this scope loops*/
+	public boolean loops() {
+		return isExecuted() && loops;
 	}
 	
 	/** Switches whether instructions in this scope are executed.*/
@@ -37,6 +48,19 @@ public final class Scope {
 		return permittedInstructions;
 	}
 	
+	/** Sets the start of this scope.
+	 * @param start the start of this scope*/
+	public void setStart(int start) {
+		this.start = start;
+	}
+	
+	/** Returns the start of this scope with possible
+	 * adjustments.
+	 * @return the start of this scope*/
+	public int getStart() { return start; }
+	
+	public int getJumpsBack() { return jumpsBack; }
+	
 	@Override
 	public String toString() {
 		return name;
@@ -46,6 +70,8 @@ public final class Scope {
 		
 		private String name;
 		private boolean isExecuted = true;
+		private boolean loops = false;
+		private int jumpsBack = 0;
 		private InstructionType[] permitted = new InstructionType[0];
 		
 		public ScopeBuilder(String name) {
@@ -62,8 +88,14 @@ public final class Scope {
 			return this;
 		}
 		
+		public ScopeBuilder setLoop(boolean loops, int jumpsBack) {
+			this.loops = loops;
+			this.jumpsBack = jumpsBack;
+			return this;
+		}
+		
 		public Scope build() {
-			return new Scope(name, isExecuted, permitted);
+			return new Scope(name, isExecuted, loops, jumpsBack, permitted);
 		}
 	}
 }

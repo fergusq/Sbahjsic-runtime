@@ -9,6 +9,8 @@ public abstract class Instruction {
 		InstructionType.IF,
 		InstructionType.ELSE,
 		InstructionType.ENDIF,
+		InstructionType.WHILE,
+		InstructionType.ENDWHILE,
 		InstructionType.LINE_NUMBER
 	};
 	
@@ -98,5 +100,19 @@ public abstract class Instruction {
 	 * @return an appropriate instruction*/
 	public static Instruction importStatement(String resource) {
 		return new Import(resource);
+	}
+	
+	/** Starts a while statement.
+	 * @param conditionInstructions the amount of instructions in the condition of
+	 * the resulting while loop
+	 * @return an appropriate instruction*/
+	public static Instruction whileStatement(int conditionInstructions) {
+		return new While(conditionInstructions);
+	}
+	
+	/** Ends a while statement.
+	 * @return an appropriate instruction*/
+	public static Instruction endWhileStatement() {
+		return EndWhile.INSTANCE;
 	}
 }
