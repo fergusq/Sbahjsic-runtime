@@ -32,6 +32,8 @@ final class Parser {
 				return new EndIfNode();
 			} else if(string.equals("native") && tokens.size() == 2) {
 				return new NativeNode(tokens.get(1).string());
+			} else if(string.equals("import") && tokens.size() == 2) {
+				return new ImportNode(tokens.get(1).string());
 			}
 		}
 		

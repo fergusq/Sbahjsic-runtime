@@ -117,4 +117,9 @@ public class TestParser {
 	public void testParsingNativeDeclarations() {
 		assertEquals(parse("native foo"), "NATIVE{foo}");
 	}
+	
+	@Test
+	public void testParsingImportStatements() {
+		assertEquals(parse("import foo"), "IMPORT{foo}");
+	}
 }

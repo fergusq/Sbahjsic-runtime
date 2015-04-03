@@ -5,6 +5,7 @@ import java.io.File;
 import sbahjsic.io.ConsoleSource;
 import sbahjsic.io.FileSource;
 import sbahjsic.io.ScriptSource;
+import sbahjsic.io.StandardLibrary;
 import sbahjsic.runtime.ExecutionEnvironment;
 
 public final class Main {
@@ -14,6 +15,8 @@ public final class Main {
 		Arguments args = Arguments.parse(programArgs);
 		
 		System.out.println("Sbahjsic v0.0.0");
+		
+		StandardLibrary.checkExistance();
 		
 		ExecutionEnvironment plan = new ExecutionEnvironment()
 				.forLastValue(args.isDebugMode() ? 

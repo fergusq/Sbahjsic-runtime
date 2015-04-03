@@ -14,34 +14,60 @@ import sbahjsic.parser.lexer.Lexer;
 import sbahjsic.parser.syntaxtree.SyntaxTree;
 import sbahjsic.runtime.type.SVoid;
 
+/** Capable of executing scripts, saving their state for further executions.*/
 public final class ExecutionEnvironment {
 	
 	private Consumer<Instruction> instConsumer = null;
 	private Consumer<SValue> valConsumer = null;
 	private boolean runCode = true;
 	private boolean saveLineNumbers = true;
-	private final RuntimeContext context = new RuntimeContext();
+	private final RuntimeContext context;
 	
+	/** Creates an instance.*/
+	public ExecutionEnvironment() {
+		context = new RuntimeContext();
+	}
+	
+	/** Creates an instance with a specific {@code RuntimeContext}.
+	 * @param context the {@code RuntimeContext}*/
+	public ExecutionEnvironment(RuntimeContext context) {
+		this.context = context;
+	}
+	
+	/** Accepts a consumer that receives all compiled instructions.
+	 * @param consumer the consumer
+	 * @return itself, for chaining*/
 	public ExecutionEnvironment forInstructions(Consumer<Instruction> consumer) {
 		instConsumer = consumer;
 		return this;
 	}
 	
+	/** Accepts a consumer that receives the last values in the stacks of things ran.
+	 * @param consumer the consumer
+	 * @return itself, for chaining*/
 	public ExecutionEnvironment forLastValue(Consumer<SValue> consumer) {
 		valConsumer = consumer;
 		return this;
 	}
 	
+	/** Sets whether the received code will be run, affecting the internal state.
+	 * @param runCode whether code will be run
+	 * @return itself, for chaining*/
 	public ExecutionEnvironment setRunCode(boolean runCode) {
 		this.runCode = runCode;
 		return this;
 	}
 	
+	/** Sets whether line numbers are saved in compiled instructions.
+	 * @param saveLineNums whether line numbers will be saved
+	 * @return itself, for chaining*/
 	public ExecutionEnvironment setSaveLineNumbers(boolean saveLineNums) {
 		saveLineNumbers = saveLineNums;
 		return this;
 	}
 	
+	/** Runs the contents of some {@code ScriptSource}.
+	 * @param source the source*/
 	public void execute(ScriptSource source) {
 		int lineNumber = 0;
 		
@@ -92,6 +118,10 @@ public final class ExecutionEnvironment {
 		}
 	}
 	
+	/** Runs some specific instructions.
+	 * @param source the source where the instructions came from, visible in error messages
+	 * @param instructions the instructions
+	 * @return the (possible) last value in the stack*/
 	public Optional<SValue> execute(String source, Instruction[] instructions) {
 		try {
 			for(Instruction ins : instructions) {

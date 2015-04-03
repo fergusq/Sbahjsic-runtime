@@ -35,7 +35,8 @@ public final class Errors {
 	}
 	
 	public static enum Warning {
-		NONSTANDARD_FILE_EXTENSION("Nonstandard file extension");
+		NONSTANDARD_FILE_EXTENSION("Nonstandard file extension"),
+		NO_STANDARD_LIBRARY("No standard library was found");
 		
 		private final String warnString;
 		

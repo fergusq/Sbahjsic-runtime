@@ -92,4 +92,11 @@ public abstract class Instruction {
 	public static Instruction nativeDeclaration(String resource) {
 		return new Native(resource);
 	}
+	
+	/** Imports a resource.
+	 * @param resource the resource to import
+	 * @return an appropriate instruction*/
+	public static Instruction importStatement(String resource) {
+		return new Import(resource);
+	}
 }

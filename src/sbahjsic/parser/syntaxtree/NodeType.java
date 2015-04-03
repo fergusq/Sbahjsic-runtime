@@ -12,5 +12,6 @@ public enum NodeType {
 	IF_NODE,
 	ELSE_NODE,
 	ENDIF_NODE,
-	NATIVE_NODE
+	NATIVE_NODE,
+	IMPORT_NODE
 }

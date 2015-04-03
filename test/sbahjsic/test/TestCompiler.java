@@ -92,4 +92,9 @@ public class TestCompiler {
 	public void testCompilingNativeDeclarations() {
 		assertEquals(compile("native bar"), "natdec 'bar'");
 	}
+	
+	@Test
+	public void testCompilingImports() {
+		assertEquals(compile("import foo"), "import 'foo'");
+	}
 }
