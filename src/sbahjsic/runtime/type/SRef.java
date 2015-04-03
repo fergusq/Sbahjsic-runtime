@@ -13,7 +13,7 @@ public final class SRef extends AbstractType {
 	};
 	
 	private final String address;
-	private final SValue refersTo;
+	final SValue refersTo;
 	
 	public SRef(String address, SValue val) {
 		this.address = address;

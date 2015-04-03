@@ -11,13 +11,19 @@ public final class SFunc extends AbstractType {
 		SFunc dummy = new SFunc(null);
 		
 		dummy.registerBiOperator("==", (con, a1, a2) -> {
-			if(!(a2 instanceof SFunc)) { return SBool.FALSE; }
-			return ((SFunc) a1).func == ((SFunc) a2).func ? SBool.TRUE : SBool.FALSE;
+			a1 = toSFuncIfPossible(a1);
+			a2 = toSFuncIfPossible(a2);
+			return a1 == a2 ? SBool.TRUE : SBool.FALSE;
 		});
 		dummy.registerBiOperator("!=", (con, a1, a2) -> {
-			if(!(a2 instanceof SFunc)) { return SBool.TRUE; }
-			return ((SFunc) a1).func != ((SFunc) a2).func ? SBool.TRUE : SBool.FALSE;
+			a1 = toSFuncIfPossible(a1);
+			a2 = toSFuncIfPossible(a2);
+			return a1 != a2 ? SBool.TRUE : SBool.FALSE;
 		});
+	}
+	
+	private static SValue toSFuncIfPossible(SValue value) {
+		return value instanceof SRef ? toSFuncIfPossible(((SRef) value).refersTo) : value;
 	}
 	
 	private final SbahjsicFunction func;
