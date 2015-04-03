@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 
 import sbahjsic.runtime.type.SNull;
 
@@ -57,6 +58,12 @@ public final class RuntimeContext {
 		return memory.get(name);
 	}
 	
+	/** Deletes something from the memory.
+	 * @param name the item to delete*/
+	public void deleteMemory(String name) {
+		memory.remove(name);
+	}
+	
 	/** Sets the line current number.
 	 * @param num the new line number*/
 	public void setLineNumber(int num) {
@@ -71,4 +78,12 @@ public final class RuntimeContext {
 	 * this {@code RuntimeContext}.
 	 * @return the scope stack*/
 	public ScopeStack scopeStack() { return scopes; }
+	
+	/** Iterates over all defined memory values.
+	 * @param consumer the consumer that accepts all memory values*/
+	public void forMemoryValues(BiConsumer<String, SValue> consumer) {
+		memory.entrySet().stream().forEach(entry -> {
+			consumer.accept(entry.getKey(), entry.getValue());
+		});
+	}
 }

@@ -64,14 +64,32 @@ public final class DefaultFunctions {
 		setHelp("setHelp", "Sets the help text of some value.");
 		map.put("setHelp", new SFunc((con, args) -> {
 			SFunc.requireArguments(2, args.length);
-			setHelp(args[0].asString(), args[1].asString());
+			setHelp(args[0].asAddress(), args[1].asString());
 			return SVoid.INSTANCE;
 		}));
 		
 		setHelp("help", "Returns the help text of some value.");
 		map.put("help", new SFunc((con, args) -> {
 			SFunc.requireArguments(1, args.length);
-			System.out.println(HELP.get(args[0].asString()));
+			System.out.println(HELP.get(args[0].asAddress()));
+			return SVoid.INSTANCE;
+		}));
+		
+		setHelp("list", "Prints all defined variables.");
+		map.put("list", new SFunc((con, args) -> {
+			SFunc.requireArguments(0, args.length);
+			con.forMemoryValues((string, val) -> {
+				System.out.println("  ["+string+"] -> [" + 
+						(HELP.containsKey(string) ? HELP.get(string) 
+						: val.asString()) + "]");
+			});
+			return SVoid.INSTANCE;
+		}));
+		
+		setHelp("del", "Deletes something from the memory.");
+		map.put("del", new SFunc((con, args) -> {
+			SFunc.requireArguments(1, args.length);
+			con.deleteMemory(args[0].asAddress());
 			return SVoid.INSTANCE;
 		}));
 		

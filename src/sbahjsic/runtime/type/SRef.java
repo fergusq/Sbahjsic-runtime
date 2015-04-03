@@ -8,7 +8,7 @@ import sbahjsic.runtime.SValue;
 public final class SRef extends AbstractType {
 	
 	private final static BiOperator ASSIGNMENT = (context, a1, a2) -> {
-		context.setMemory(((SRef) a1).address, a2);
+		context.setMemory(a1.asAddress(), a2);
 		return SVoid.INSTANCE;
 	};
 	
@@ -45,6 +45,9 @@ public final class SRef extends AbstractType {
 
 	@Override
 	public String asString() { return refersTo.asString(); }
+	
+	@Override
+	public String asAddress() { return address; }
 
 	@Override
 	public int hashCode() {

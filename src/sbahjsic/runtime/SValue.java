@@ -53,4 +53,10 @@ public interface SValue {
 	default public boolean asBool() {
 		return asInt() == 0 ? false : true;
 	}
+	
+	/** Returns the memory address this value represents.
+	 * @return the memory address this value represents*/
+	default public String asAddress() {
+		return asString();
+	}
 }
