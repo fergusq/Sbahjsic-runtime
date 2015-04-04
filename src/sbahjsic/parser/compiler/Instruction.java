@@ -115,4 +115,18 @@ public abstract class Instruction {
 	public static Instruction endWhileStatement() {
 		return EndWhile.INSTANCE;
 	}
+	
+	/** Starts defining a function. Pops its name and the names of its
+	 * arguments.
+	 * @param args the number of arguments the function takes
+	 * @return an appropriate instruction*/
+	public static Instruction function(int args) {
+		return new Function(args);
+	}
+	
+	/** Ends defining a function.
+	 * @return an appropriate instruction*/
+	public static Instruction endFunction() {
+		return EndFunction.INSTANCE;
+	}
 }

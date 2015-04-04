@@ -2,35 +2,34 @@ package sbahjsic.parser.syntaxtree;
 
 import sbahjsic.parser.compiler.Instruction;
 
-public final class EndWhileNode extends Node {
+public final class EndFunctionNode extends Node {
 	
-	public final static EndWhileNode INSTANCE = new EndWhileNode();
+	public final static EndFunctionNode INSTANCE = new EndFunctionNode();
 	
-	private EndWhileNode() {}
+	private EndFunctionNode() {}
 
 	@Override
 	public NodeType type() {
-		return NodeType.ENDWHILE_NODE;
+		return NodeType.ENDFUNCTION_NODE;
 	}
 
 	@Override
 	public Instruction[] toInstructions() {
-		return new Instruction[] { Instruction.endWhileStatement() };
+		return new Instruction[] { Instruction.endFunction() };
 	}
 
 	@Override
 	public String toString() {
-		return "ENDWHILE";
+		return "ENDFUNCTION";
 	}
-
+	
 	@Override
 	public boolean equals(Object o) {
 		return o == INSTANCE;
 	}
-
+	
 	@Override
 	public int hashCode() {
-		return -7878;
+		return -53646511;
 	}
-	
 }

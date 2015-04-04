@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import sbahjsic.parser.lexer.Lexer;
+import sbahjsic.parser.syntaxtree.SyntaxException;
 import sbahjsic.parser.syntaxtree.SyntaxTree;
 
 public class TestParser {
@@ -131,5 +132,40 @@ public class TestParser {
 	@Test
 	public void testParsingEndWhileStatement() {
 		assertEquals(parse("endwhile"), "ENDWHILE");
+	}
+	
+	@Test
+	public void testParsingEndFunction() {
+		assertEquals(parse("endfunction"), "ENDFUNCTION");
+	}
+	
+	@Test
+	public void testParsingEmptyFunctionDefinition() {
+		assertEquals(parse("function f()"), "FUNCTION{f, []}");
+	}
+	
+	@Test
+	public void testParsingSingleArgumentFunctionDefinition() {
+		assertEquals(parse("function x(arg)"), "FUNCTION{x, [arg]}");
+	}
+	
+	@Test
+	public void testParsingManyArgumentFunctionDefinition() {
+		assertEquals(parse("function f(a, b, c, d, e)"), "FUNCTION{f, [a, b, c, d, e]}");
+	}
+	
+	@Test(expected=SyntaxException.class)
+	public void testFunctionDefinitionFailureOnNoClosingBracket() {
+		parse("function f(a, b, c");
+	}
+	
+	@Test(expected=SyntaxException.class)
+	public void testFunctionDefinitionFailureOnNoOpeningBracket() {
+		parse("function f a, b, c)");
+	}
+	
+	@Test(expected=SyntaxException.class)
+	public void testFunctionDefinitionFailureOnCommaError() {
+		parse("function f(a b c)");
 	}
 }

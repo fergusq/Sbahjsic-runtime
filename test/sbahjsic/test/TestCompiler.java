@@ -108,4 +108,19 @@ public class TestCompiler {
 	public void testCompilingEndWhileStatement() {
 		assertEquals(compile("endwhile"), "endwhile");
 	}
+	
+	@Test
+	public void testCompilingEndFunction() {
+		assertEquals(compile("endfunction"), "endfunc");
+	}
+	
+	@Test
+	public void testCompilingFunctionDefinition() {
+		assertEquals(compile("function f(a, b, c, d)"), "pshvar d"
+				+ "\npshvar c"
+				+ "\npshvar b"
+				+ "\npshvar a"
+				+ "\npshvar f"
+				+ "\nfunc 4");
+	}
 }

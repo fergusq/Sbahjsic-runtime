@@ -179,4 +179,20 @@ public class TestExecutor {
 				"endwhile",
 				"t").asInt());
 	}
+	
+	@Test
+	public void testDefiningFunctions() {
+		assertEquals("func", lastValue("function f()",
+				"endfunction",
+				"f").typeName());
+	}
+	
+	@Test
+	public void testCallingFunctions() {
+		assertEquals(4, lastValue("function set(x)",
+				"value = x",
+				"endfunction",
+				"set(4)",
+				"value").asInt());
+	}
 }

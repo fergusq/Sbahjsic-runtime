@@ -15,5 +15,7 @@ public enum InstructionType {
 	NATIVE,
 	IMPORT,
 	WHILE,
-	ENDWHILE;
+	ENDWHILE,
+	FUNCTION,
+	ENDFUNCTION;
 }

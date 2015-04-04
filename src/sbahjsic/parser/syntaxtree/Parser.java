@@ -38,6 +38,10 @@ public final class Parser {
 				return new WhileNode(parseValue(tokens.subList(1, tokens.size())));
 			} else if(string.equals("endwhile") && tokens.size() == 1) {
 				return EndWhileNode.INSTANCE;
+			} else if(string.equals("endfunction") && tokens.size() == 1) {
+				return EndFunctionNode.INSTANCE;
+			} else if(string.equals("function") && tokens.size() >= 4) {
+				return parseFunctionDefinition(tokens);
 			}
 		}
 		
@@ -211,5 +215,27 @@ public final class Parser {
 		}
 		
 		return -1;
+	}
+	
+	static Node parseFunctionDefinition(List<Token> tokens) {
+		String name = tokens.get(1).string();
+		
+		if(tokens.get(2) != Token.BRACKET_OPEN || tokens.get(tokens.size()-1) != Token.BRACKET_CLOSE) {
+			throw new SyntaxException("Illegal function definition");
+		}
+		
+		List<String> args = new ArrayList<>();
+		
+		for(int i = 3; i < tokens.size() -1; i+=2) {
+			args.add(tokens.get(i).string());
+			
+			if(i < tokens.size() - 2) {
+				if(tokens.get(i+1) != Token.COMMA) {
+					throw new SyntaxException("Comma expected, got " + tokens.get(i+1));
+				}
+			}
+		}
+		
+		return new FunctionNode(name, args.toArray(new String[args.size()]));
 	}
 }

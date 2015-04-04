@@ -129,6 +129,10 @@ public final class ExecutionEnvironment {
 		};
 		
 		Consumer<Scope> scopeEndListener = s -> {
+			if(s.savesInstructions()) {
+				s.getInstructionsConsumer().accept(context, s.getSavedInstructions());
+			}
+			
 			if(s.loops() && s.isExecuted()) {
 				if(!context.scopeStack().top().loops()) {
 					index = s.getStart() - s.getJumpsBack() -1;
@@ -157,8 +161,15 @@ public final class ExecutionEnvironment {
 	}
 	
 	private void executeInstruction(Instruction ins) {
+		Scope top = context.scopeStack().top();
+		
 		if(canBeRun(ins))
 			ins.execute(context);
+		
+		// If a new scope starts, it wont save its definition instruction
+		Scope newTop = context.scopeStack().top();
+		if(top == newTop && top.savesInstructions())
+			top.saveInstruction(ins);
 		
 		if(instConsumer != null)
 			instConsumer.accept(ins);

@@ -10,8 +10,10 @@ import sbahjsic.parser.syntaxtree.Parser;
 /** A ScriptSource that reads System.in.*/
 public final class ConsoleSource implements ScriptSource {
 	
-	private final static NodeType[] CONTINUE_AFTER = new NodeType[] { NodeType.IF_NODE, NodeType.WHILE_NODE };
-	private final static NodeType[] END_AFTER = new NodeType[] { NodeType.ENDIF_NODE, NodeType.END_WHILE_NODE };
+	private final static NodeType[] CONTINUE_AFTER = new NodeType[] { NodeType.IF_NODE,
+		NodeType.WHILE_NODE, NodeType.FUNCTION_NODE};
+	private final static NodeType[] END_AFTER = new NodeType[] { NodeType.ENDIF_NODE,
+		NodeType.ENDWHILE_NODE, NodeType.ENDFUNCTION_NODE };
 	
 	private final Scanner scanner = new Scanner(System.in);
 	private boolean called = false;
