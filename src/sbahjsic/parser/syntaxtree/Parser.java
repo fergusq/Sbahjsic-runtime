@@ -108,7 +108,7 @@ public final class Parser {
 			if(type == TokenType.BRACKET_OPEN) { bracketLevel++; }
 			
 			if(bracketLevel == 0) {
-				if(lastWasValue && isValue(type)) {
+				if(lastWasValue && type.isValue()) {
 					return new BinaryOperatorNode(Token.operator("*"),
 							parseValue(tokens.subList(0, i)),
 							parseValue(tokens.subList(i, tokens.size())));
@@ -121,20 +121,14 @@ public final class Parser {
 				}
 			}
 			
-			if(isValue(type)) {
+			if(type.isValue()) {
 				lastWasValue = true;
 			}
 			
 			if(type == TokenType.BRACKET_CLOSE) { bracketLevel --; }
 		}
 		
-		throw new SyntaxException("Unknown syntax error");
-	}
-	
-	static boolean isValue(TokenType type) {
-		return type == TokenType.IDENTIFIER 
-				|| type == TokenType.INT_LITERAL 
-				|| type == TokenType.STRING_LITERAL;
+		throw new SyntaxException("Unknown syntax error ");
 	}
 	
 	static List<Token> removeExtraBrackets(List<Token> list) {

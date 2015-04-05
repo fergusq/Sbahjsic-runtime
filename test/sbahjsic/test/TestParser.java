@@ -100,6 +100,11 @@ public class TestParser {
 	}
 	
 	@Test
+	public void testParsingFunctionCallsWithFloatArgument() {
+		assertEquals(parse("f(4.5)"), "f{4.5}");
+	}
+	
+	@Test
 	public void testParsingFunctionCallsWithManyArguments() {
 		assertEquals(parse("f(1, 2, 3)"), "f{1, 2, 3}");
 	}

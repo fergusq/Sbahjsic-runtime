@@ -131,4 +131,14 @@ public class TestLexer {
 	public void testFloatLiterals() {
 		assertEquals(Lexer.toTokens("5.24"), Arrays.asList(Token.floatLiteral("5.24")));
 	}
+	
+	@Test
+	public void testProblematicFloatLiterals() {
+		assertEquals(Lexer.toTokens("4.6)"), Arrays.asList(Token.floatLiteral("4.6"), Token.BRACKET_CLOSE));
+	}
+	
+	@Test(expected=UnrecognizedTokenException.class)
+	public void testCorrectFailureOnMultiplePointsInFloats() {
+		Lexer.toTokens("4..");
+	}
 }

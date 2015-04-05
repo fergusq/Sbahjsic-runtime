@@ -18,8 +18,10 @@ public final class SFloat extends AbstractType {
 		dummy.registerBiOperator("<=", (con, a1, a2) -> a1.asFloat() <= a2.asFloat() ? SBool.TRUE : SBool.FALSE);
 		dummy.registerBiOperator(">=", (con, a1, a2) -> a1.asFloat() >= a2.asFloat() ? SBool.TRUE : SBool.FALSE);
 		
-		dummy.registerBiOperator("==", (con, a1, a2) -> a1.asFloat() == a2.asFloat() ? SBool.TRUE : SBool.FALSE);
-		dummy.registerBiOperator("!=", (con, a1, a2) -> a1.asFloat() != a2.asFloat() ? SBool.TRUE : SBool.FALSE);
+		dummy.registerBiOperator("==", (con, a1, a2) -> Float.compare(a1.asFloat(), a2.asFloat()) == 0 
+				? SBool.TRUE : SBool.FALSE);
+		dummy.registerBiOperator("!=", (con, a1, a2) -> Float.compare(a1.asFloat(), a2.asFloat()) != 0 
+				? SBool.TRUE : SBool.FALSE);
 	}
 	
 	private final float value;

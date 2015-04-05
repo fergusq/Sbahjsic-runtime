@@ -40,8 +40,8 @@ interface TokenMatcher {
 		for(int i = 1; i < string.length(); i++) {
 			char character = string.charAt(i);
 			if(LexerUtils.isNumeric(character)) { continue; }
-			if(character != '.') { endIndex = i; break; }
-			if(hasPoint == true) { endIndex = i; break; }
+			if(character != '.') { endIndex = i-1; break; }
+			if(hasPoint == true) { endIndex = i-1; break; }
 			hasPoint = true;
 		}
 		
