@@ -11,6 +11,7 @@ public enum InstructionType {
 	LINE_NUMBER,
 	PUSH_INT,
 	PUSH_STRING,
+	PUSH_FLOAT,
 	PUSH_VAR,
 	NATIVE,
 	IMPORT,

@@ -7,7 +7,7 @@ final class LexerUtils {
 
 	final static char[] OP_CHARS = { '+', '-', '*', '/', '&', '|', '>', '<', '=', '!', '?', '~', '^' };
 	
-	final static char[] RESERVED_CHARS = { '(', ')', ',', '"', '\\', '$', ' ', '\t' };
+	final static char[] RESERVED_CHARS = { '(', ')', ',', '"', '\\', '$', ' ', '\t', '.' };
 	
 	// These functions use int for use with IntPredicates
 	

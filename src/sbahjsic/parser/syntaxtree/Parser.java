@@ -90,6 +90,8 @@ public final class Parser {
 				return new IntNode(token);
 			case STRING_LITERAL:
 				return new StringNode(token);
+			case FLOAT_LITERAL:
+				return new FloatNode(token);
 			default:
 				return new IdentifierNode(token);
 		}

@@ -30,6 +30,11 @@ public class TestParser {
 	}
 	
 	@Test
+	public void testParsingFloatLiterals() {
+		assertEquals(parse("4.66"), "4.66");
+	}
+	
+	@Test
 	public void testParsingUnaryOperators() {
 		assertEquals(parse("-5"), "-{5}");
 	}

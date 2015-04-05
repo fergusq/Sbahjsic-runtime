@@ -32,6 +32,13 @@ public abstract class Instruction {
 		return new PushInt(value);
 	}
 	
+	/** Pushes a float into the stack.
+	 * @param value the float to push
+	 * @return an appropriate instruction*/
+	public static Instruction pushFloat(float value) {
+		return new PushFloat(value);
+	}
+	
 	/** Pushes a string into the stack.
 	 * @param value the string to push
 	 * @return an appropriate instruction*/

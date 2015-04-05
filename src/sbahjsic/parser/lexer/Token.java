@@ -63,6 +63,13 @@ public final class Token {
 		return new Token(TokenType.STRING_LITERAL, literal);
 	}
 	
+	/** Creates a float literal token.
+	 * @param literal the float literal contained by the token
+	 * @return a float literal token*/
+	public static Token floatLiteral(String literal) {
+		return new Token(TokenType.FLOAT_LITERAL, literal);
+	}
+	
 	@Override
 	public String toString() {
 		return "[" + type + ": " + string + "]";

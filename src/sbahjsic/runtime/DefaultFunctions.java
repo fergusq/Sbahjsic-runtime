@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import sbahjsic.runtime.type.SBool;
+import sbahjsic.runtime.type.SFloat;
 import sbahjsic.runtime.type.SFunc;
 import sbahjsic.runtime.type.SInt;
 import sbahjsic.runtime.type.SNull;
@@ -59,6 +60,12 @@ public final class DefaultFunctions {
 		map.put("_int", new SFunc((con, args) -> {
 			SFunc.requireArguments(1, args.length);
 			return new SInt(args[0].asInt());
+		}));
+		
+		setHelp("_float", "Converts its argument to float.");
+		map.put("_float", new SFunc((con, args) -> {
+			SFunc.requireArguments(1, args.length);
+			return new SFloat(args[0].asFloat());
 		}));
 		
 		setHelp("setHelp", "Sets the help text of some value.");

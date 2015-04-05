@@ -31,6 +31,25 @@ interface TokenMatcher {
 		return null;
 	};
 	
+	final static TokenMatcher FLOAT_LITERAL_MATCHER = string -> {
+		if(string.length() == 0) { return null; }
+		if(!LexerUtils.isNumeric(string.charAt(0))) { return null; }
+		boolean hasPoint = false;
+		int endIndex = string.length()-1;
+		
+		for(int i = 1; i < string.length(); i++) {
+			char character = string.charAt(i);
+			if(LexerUtils.isNumeric(character)) { continue; }
+			if(character != '.') { endIndex = i; break; }
+			if(hasPoint == true) { endIndex = i; break; }
+			hasPoint = true;
+		}
+		
+		if(!hasPoint) { return null; }
+		
+		return Token.floatLiteral(string.substring(0, endIndex+1));
+	};
+	
 	final static TokenMatcher OPERATOR_MATCHER = 
 			LexerUtils.matchUntilIllegalFound(LexerUtils::isOperatorChar, Token::operator);
 	

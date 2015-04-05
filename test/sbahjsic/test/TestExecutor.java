@@ -9,6 +9,7 @@ import sbahjsic.io.MockSource;
 import sbahjsic.runtime.ExecutionEnvironment;
 import sbahjsic.runtime.SValue;
 import sbahjsic.runtime.UnknownNativeException;
+import sbahjsic.runtime.type.SFloat;
 import sbahjsic.runtime.type.SInt;
 import sbahjsic.runtime.type.SString;
 
@@ -40,6 +41,11 @@ public class TestExecutor {
 	@Test
 	public void testStrings() {
 		assertEquals(new SString("cat"), lastValue("\"cat\""));
+	}
+	
+	@Test
+	public void testFloats() {
+		assertEquals(new SFloat(4.23f), lastValue("4.23"));
 	}
 	
 	@Test

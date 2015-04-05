@@ -44,6 +44,11 @@ public class TestCompiler {
 	}
 	
 	@Test
+	public void testCompilingSingleFloat() {
+		assertEquals(compile("5.78"), "pshfl 5.78");
+	}
+	
+	@Test
 	public void testCompilingUnaryOperator() {
 		assertEquals(compile("+1"), "pshint 1"
 				+ "\nuop +");

@@ -126,4 +126,9 @@ public class TestLexer {
 				Token.intLiteral("6"),
 				Token.identifier("t")));
 	}
+	
+	@Test
+	public void testFloatLiterals() {
+		assertEquals(Lexer.toTokens("5.24"), Arrays.asList(Token.floatLiteral("5.24")));
+	}
 }
