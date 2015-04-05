@@ -42,6 +42,10 @@ public final class Parser {
 				return EndFunctionNode.INSTANCE;
 			} else if(string.equals("function") && tokens.size() >= 4) {
 				return parseFunctionDefinition(tokens);
+			} else if(string.equals("return") && tokens.size() == 1) {
+				return new ReturnNode(new IdentifierNode(Token.identifier("_void")));
+			} else if(string.equals("return")) {
+				return new ReturnNode(parseValue(tokens.subList(1, tokens.size())));
 			}
 		}
 		

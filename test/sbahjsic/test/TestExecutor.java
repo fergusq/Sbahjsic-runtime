@@ -195,4 +195,31 @@ public class TestExecutor {
 				"set(4)",
 				"value").asInt());
 	}
+	
+	@Test
+	public void testReturningValueFromFunction() {
+		assertEquals(3, lastValue("function f()",
+				"return 3",
+				"endfunction",
+				"f()").asInt());
+	}
+	
+	@Test
+	public void testDefaultReturnValueIsVoid() {
+		assertEquals("void", lastValue("function f()",
+				"endfunction",
+				"x = f()",
+				"x").typeName());
+	}
+	
+	@Test
+	public void testReturnExitsFunction() {
+		assertEquals(2, lastValue("x = 2",
+				"function g()",
+				"return 3",
+				"x = 4",
+				"endfunction",
+				"g()",
+				"x").asInt());
+	}
 }

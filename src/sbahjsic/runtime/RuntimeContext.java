@@ -19,6 +19,13 @@ public final class RuntimeContext {
 	
 	private int line;
 	
+	/** Peeks the stack.
+	 * @return an empty optional if the stack is empty or the top*/
+	public Optional<SValue> peek() {
+		SValue val = stack.peek();
+		return val == null ? Optional.empty() : Optional.of(val);
+	}
+	
 	/** Pushes a value to the stack.
 	 * @param value the value to push*/
 	public void push(SValue value) {

@@ -7,6 +7,7 @@ import sbahjsic.parser.compiler.Instruction;
 import sbahjsic.runtime.ExecutionEnvironment;
 import sbahjsic.runtime.RuntimeContext;
 import sbahjsic.runtime.SValue;
+import sbahjsic.runtime.Scope;
 
 /** Represents an user-defined function.*/
 public final class SUserFunc extends AbstractType {
@@ -29,11 +30,17 @@ public final class SUserFunc extends AbstractType {
 			context.setMemory(argNames[i], arguments[i]);
 		}
 		
+		Scope oldTop = context.scopeStack().top();
+		
 		new ExecutionEnvironment(context)
 				.setRunCode(true)
 				.execute(name, body);
+		Optional<SValue> returnValue = context.peek();
 		
-		Optional<SValue> returnValue = context.safePop();
+		while(context.scopeStack().top() != oldTop) {
+			context.scopeStack().removeTop();
+		}
+		
 		return returnValue.isPresent() ? returnValue.get() : SVoid.INSTANCE;
 	}
 

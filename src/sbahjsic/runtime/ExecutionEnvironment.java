@@ -157,7 +157,7 @@ public final class ExecutionEnvironment {
 			context.scopeStack().removeScopeEndListener(scopeEndListener);
 		}
 		
-		return context.safePop();
+		return context.peek();
 	}
 	
 	private void executeInstruction(Instruction ins) {

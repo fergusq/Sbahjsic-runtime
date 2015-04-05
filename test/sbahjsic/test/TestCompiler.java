@@ -123,4 +123,16 @@ public class TestCompiler {
 				+ "\npshvar f"
 				+ "\nfunc 4");
 	}
+	
+	@Test
+	public void testCompilingEmptyReturnStatement() {
+		assertEquals(compile("return"), "pshvar _void"
+				+ "\nret");
+	}
+	
+	@Test
+	public void testCompilingReturnStatement() {
+		assertEquals(compile("return 6"), "pshint 6"
+				+ "\nret");
+	}
 }

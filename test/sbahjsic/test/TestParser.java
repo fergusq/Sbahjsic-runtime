@@ -168,4 +168,14 @@ public class TestParser {
 	public void testFunctionDefinitionFailureOnCommaError() {
 		parse("function f(a b c)");
 	}
+	
+	@Test
+	public void testParsingEmptyReturnStatement() {
+		assertEquals(parse("return"), "RETURN{_void}");
+	}
+	
+	@Test
+	public void testParsingReturnStatement() {
+		assertEquals(parse("return 4+5"), "RETURN{+{4, 5}}");
+	}
 }

@@ -17,5 +17,6 @@ public enum InstructionType {
 	WHILE,
 	ENDWHILE,
 	FUNCTION,
-	ENDFUNCTION;
+	ENDFUNCTION,
+	RETURN
 }

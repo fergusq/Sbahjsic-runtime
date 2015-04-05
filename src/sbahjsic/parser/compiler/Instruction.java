@@ -129,4 +129,10 @@ public abstract class Instruction {
 	public static Instruction endFunction() {
 		return EndFunction.INSTANCE;
 	}
+	
+	/** Returns from a function, popping the return value.
+	 * @return an appropriate instruction*/
+	public static Instruction returnStatement() {
+		return Return.INSTANCE;
+	}
 }
