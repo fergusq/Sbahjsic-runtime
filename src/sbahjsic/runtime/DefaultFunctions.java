@@ -102,6 +102,26 @@ public final class DefaultFunctions {
 			return SVoid.INSTANCE;
 		}));
 		
+		setHelp("ParseInt", "Parses its argument as an int. Returns undefined if failure.");
+		map.put("ParseInt", new SFunc((con, args) -> {
+			SFunc.requireArguments(1, args.length);
+			try {
+				return new SInt(Integer.parseInt(args[0].asString()));
+			} catch(Exception e) {
+				return SUndefined.INSTANCE;
+			}
+		}));
+		
+		setHelp("ParseDec", "Parses a decimal. Returns undefined if failure.");
+		map.put("ParseDec", new SFunc((con, args) -> {
+			SFunc.requireArguments(1, args.length);
+			try {
+				return new SFloat(Float.parseFloat(args[0].asString()));
+			} catch(Exception e) {
+				return SUndefined.INSTANCE;
+			}
+		}));
+		
 		return map;
 	}
 }
