@@ -9,7 +9,13 @@ public final class SFloat extends AbstractType {
 		dummy.registerBiOperator("+", (con, a1, a2) -> new SFloat(a1.asFloat() + a2.asFloat()));
 		dummy.registerBiOperator("-", (con, a1, a2) -> new SFloat(a1.asFloat() - a2.asFloat()));
 		dummy.registerBiOperator("*", (con, a1, a2) -> new SFloat(a1.asFloat() * a2.asFloat()));
-		dummy.registerBiOperator("/", (con, a1, a2) -> new SFloat(a1.asFloat() / a2.asFloat()));
+		dummy.registerBiOperator("/", (con, a1, a2) -> {
+			float result = (a1.asFloat() / a2.asFloat());
+			if(Float.isInfinite(result) || Float.isNaN(result)) {
+				return SUndefined.INSTANCE;
+			}
+			return new SFloat(result);
+		});
 		
 		dummy.registerBiOperator("**", (con, a1, a2) -> new SFloat((float) Math.pow(a1.asFloat(), a2.asFloat())));
 		

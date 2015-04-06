@@ -8,7 +8,11 @@ public final class SInt extends AbstractType {
 		dummy.registerBiOperator("+", (con, a1, a2) -> new SInt(a1.asInt() + a2.asInt()));
 		dummy.registerBiOperator("-", (con, a1, a2) -> new SInt(a1.asInt() - a2.asInt()));
 		dummy.registerBiOperator("*", (con, a1, a2) -> new SInt(a1.asInt() * a2.asInt()));
-		dummy.registerBiOperator("/", (con, a1, a2) -> new SInt(a1.asInt() / a2.asInt()));
+		dummy.registerBiOperator("/", (con, a1, a2) -> { 
+			int divider = a2.asInt();
+			if(divider == 0) { return SUndefined.INSTANCE; }
+			return new SInt(a1.asInt() / divider);
+		});
 		
 		dummy.registerBiOperator("**", (con, a1, a2) -> new SInt((int) Math.pow(a1.asInt(), a2.asInt())));
 		

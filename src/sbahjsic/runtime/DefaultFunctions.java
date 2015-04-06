@@ -9,6 +9,7 @@ import sbahjsic.runtime.type.SFunc;
 import sbahjsic.runtime.type.SInt;
 import sbahjsic.runtime.type.SNull;
 import sbahjsic.runtime.type.SString;
+import sbahjsic.runtime.type.SUndefined;
 import sbahjsic.runtime.type.SVoid;
 
 public final class DefaultFunctions {
@@ -30,6 +31,7 @@ public final class DefaultFunctions {
 		map.put("true", SBool.TRUE);
 		map.put("false", SBool.FALSE);
 		map.put("_void", SVoid.INSTANCE);
+		map.put("_undefined", SUndefined.INSTANCE);
 		
 		setHelp("print", "Prints something.");
 		map.put("print", new SFunc((con, args) -> {
