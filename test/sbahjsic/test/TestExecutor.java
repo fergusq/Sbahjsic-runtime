@@ -44,6 +44,11 @@ public class TestExecutor {
 	}
 	
 	@Test
+	public void testEscapingNewline() {
+		assertEquals("\n", lastValue("\"\\n\"").asString());
+	}
+	
+	@Test
 	public void testFloats() {
 		assertEquals(new SFloat(4.23f), lastValue("4.23"));
 	}

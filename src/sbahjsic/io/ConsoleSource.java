@@ -10,12 +10,13 @@ import sbahjsic.parser.syntaxtree.Parser;
 /** A ScriptSource that reads System.in.*/
 public final class ConsoleSource implements ScriptSource {
 	
+	public final static Scanner SCANNER = new Scanner(System.in);
+	
 	private final static NodeType[] CONTINUE_AFTER = new NodeType[] { NodeType.IF_NODE,
 		NodeType.WHILE_NODE, NodeType.FUNCTION_NODE};
 	private final static NodeType[] END_AFTER = new NodeType[] { NodeType.ENDIF_NODE,
 		NodeType.ENDWHILE_NODE, NodeType.ENDFUNCTION_NODE };
 	
-	private final Scanner scanner = new Scanner(System.in);
 	private boolean called = false;
 	private int level = 0;
 
@@ -24,7 +25,7 @@ public final class ConsoleSource implements ScriptSource {
 
 	@Override
 	public String nextLine() {
-		String line = scanner.nextLine();
+		String line = SCANNER.nextLine();
 		Node node = new Parser(Lexer.toTokens(line)).parse();
 		
 		for(NodeType type : CONTINUE_AFTER) {

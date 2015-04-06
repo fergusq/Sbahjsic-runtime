@@ -22,7 +22,9 @@ final class PushString extends Instruction {
 	}
 	
 	static String toRawString(String tokenString) {
-		return tokenString.substring(1, tokenString.length()-1).replace("\\\"", "\"");
+		return tokenString.substring(1, tokenString.length()-1).replace("\\\"", "\"")
+				.replace("\\n", "\n")
+				.replace("\\t", "\t");
 	}
 
 	@Override

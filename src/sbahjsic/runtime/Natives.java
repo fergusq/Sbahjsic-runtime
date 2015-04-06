@@ -1,9 +1,12 @@
 package sbahjsic.runtime;
 
+import sbahjsic.io.ConsoleSource;
+import sbahjsic.runtime.type.SBool;
 import sbahjsic.runtime.type.SFloat;
 import sbahjsic.runtime.type.SFunc;
 import sbahjsic.runtime.type.SNull;
 import sbahjsic.runtime.type.SString;
+import sbahjsic.runtime.type.SVoid;
 
 /** Contains implementations of declarable native resources.*/
 public final class Natives {
@@ -69,6 +72,21 @@ public final class Natives {
 						val = val.callOperator(con, "+", args[i]);
 					}
 					return val;
+				});
+				
+			case "putstr":
+				return new SFunc((con, args) -> {
+					System.out.print(args[0].asString());
+					return SVoid.INSTANCE;
+				});
+				
+			case "input":
+				return new SFunc((con, args) -> {
+					try {
+						return new SString(ConsoleSource.SCANNER.nextLine());
+					} catch(Exception e) {
+						return SBool.FALSE;
+					}
 				});
 				
 			default:
