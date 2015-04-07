@@ -39,6 +39,11 @@ public class TestExecutor {
 	}
 	
 	@Test
+	public void testLongs() {
+		assertEquals(Long.MAX_VALUE, lastValue(""+Long.MAX_VALUE).asLong());
+	}
+	
+	@Test
 	public void testStrings() {
 		assertEquals(new SString("cat"), lastValue("\"cat\""));
 	}

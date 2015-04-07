@@ -34,6 +34,11 @@ public class TestCompiler {
 	}
 	
 	@Test
+	public void testCompilingSingleLong() {
+		assertEquals(compile(""+Long.MAX_VALUE), "pshlng " + Long.MAX_VALUE);
+	}
+	
+	@Test
 	public void testCompilingSingleIdentifier() {
 		assertEquals(compile("x"), "pshvar x");
 	}

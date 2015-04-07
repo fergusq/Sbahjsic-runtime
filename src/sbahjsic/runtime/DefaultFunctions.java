@@ -7,6 +7,7 @@ import sbahjsic.runtime.type.SBool;
 import sbahjsic.runtime.type.SFloat;
 import sbahjsic.runtime.type.SFunc;
 import sbahjsic.runtime.type.SInt;
+import sbahjsic.runtime.type.SLong;
 import sbahjsic.runtime.type.SNull;
 import sbahjsic.runtime.type.SString;
 import sbahjsic.runtime.type.SUndefined;
@@ -62,6 +63,12 @@ public final class DefaultFunctions {
 		map.put("_int", new SFunc((con, args) -> {
 			SFunc.requireArguments(1, args.length);
 			return new SInt(args[0].asInt());
+		}));
+		
+		setHelp("_long", "Converts its argument to long.");
+		map.put("_long", new SFunc((con, args) -> {
+			SFunc.requireArguments(1, args.length);
+			return new SLong(args[0].asLong());
 		}));
 		
 		setHelp("_float", "Converts its argument to float.");

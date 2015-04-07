@@ -7,14 +7,14 @@ import sbahjsic.parser.lexer.TokenType;
 /** A node that contains an integer.*/
 public final class IntNode extends ValueNode {
 	
-	private final int integer;
+	private final Token token;
 	
 	public IntNode(Token token) {
 		if(token.type() != TokenType.INT_LITERAL) {
 			throw new IllegalArgumentException();
 		}
 		
-		integer = Integer.parseInt(token.string());
+		this.token = token;
 	}
 
 	@Override
@@ -22,19 +22,23 @@ public final class IntNode extends ValueNode {
 	
 	@Override
 	public Instruction[] toInstructions() {
-		return new Instruction[] { Instruction.pushInt(integer) };
+		try {
+			return new Instruction[] { Instruction.pushInt(Integer.parseInt(token.string())) };
+		} catch(Exception e) {
+			return new Instruction[] { Instruction.pushLong(Long.parseLong(token.string())) };
+		}
 	}
 	
 	@Override
 	public String toString() {
-		return "" + integer;
+		return "" + token.string();
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + integer;
+		result = prime * result + ((token == null) ? 0 : token.hashCode());
 		return result;
 	}
 
@@ -50,10 +54,13 @@ public final class IntNode extends ValueNode {
 			return false;
 		}
 		IntNode other = (IntNode) obj;
-		if (integer != other.integer) {
+		if (token == null) {
+			if (other.token != null) {
+				return false;
+			}
+		} else if (!token.equals(other.token)) {
 			return false;
 		}
 		return true;
 	}
-	
 }

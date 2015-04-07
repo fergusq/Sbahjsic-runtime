@@ -20,6 +20,11 @@ public class TestParser {
 	}
 	
 	@Test
+	public void testParsingLongLiterals() {
+		assertEquals(parse("" + Long.MAX_VALUE), "" + Long.MAX_VALUE);
+	}
+	
+	@Test
 	public void testParsingIdentifiers() {
 		assertEquals(parse("x"), "x");
 	}
