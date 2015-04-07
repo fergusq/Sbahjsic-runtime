@@ -10,6 +10,7 @@ public final class Arguments {
 	
 	private boolean debug = false;
 	private boolean saveLineNumbers = true;
+	private boolean fixLongs = false;
 	private final List<String> files = new ArrayList<>();
 	
 	private Arguments() {}
@@ -25,6 +26,12 @@ public final class Arguments {
 		return saveLineNumbers;
 	}
 	
+	/** Returns whether longs work properly.
+	 * @return whether longs work properly*/
+	public boolean fixLongs() {
+		return fixLongs;
+	}
+	
 	/** Returns all files that should be run.
 	 * @return all files that should be run*/
 	public List<String> getFiles() { return files; }
@@ -37,6 +44,8 @@ public final class Arguments {
 				arguments.debug = true;
 			} else if(arg.equals("-nln")) {
 				arguments.saveLineNumbers = false;
+			} else if(arg.equals("-fix--longs")) {
+				arguments.fixLongs = true;
 			} else {
 				if(!arg.endsWith(".sb")) {
 					Errors.warn(Warning.NONSTANDARD_FILE_EXTENSION, arg);

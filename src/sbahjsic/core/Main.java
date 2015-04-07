@@ -10,9 +10,12 @@ import sbahjsic.runtime.ExecutionEnvironment;
 
 public final class Main {
 	
+	public static Arguments ARGS;
+	
 	public static void main(String[] programArgs) {
 		
 		Arguments args = Arguments.parse(programArgs);
+		ARGS = args;
 		
 		System.out.println("Sbahjsic v0.0.0");
 		

@@ -1,5 +1,6 @@
 package sbahjsic.runtime.type;
 
+import sbahjsic.core.Main;
 import sbahjsic.runtime.Operator.BiOperator;
 import sbahjsic.runtime.OperatorCallException;
 import sbahjsic.runtime.RuntimeContext;
@@ -42,6 +43,14 @@ public final class SRef extends AbstractType {
 
 	@Override
 	public int asInt() { return refersTo.asInt(); }
+	
+	@Override
+	public long asLong() {
+		if(!Main.ARGS.fixLongs()) {
+			return refersTo.asInt();
+		}
+		return refersTo.asLong();
+	}
 
 	@Override
 	public String asString() { return refersTo.asString(); }
