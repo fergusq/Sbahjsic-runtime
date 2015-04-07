@@ -12,6 +12,22 @@ import sbahjsic.runtime.Scope;
 /** Represents an user-defined function.*/
 public final class SUserFunc extends AbstractType {
 	
+	static {
+		SUserFunc dummy = new SUserFunc(null, null, null);
+		
+		dummy.registerBiOperator("==", (con, a1, a2) -> {
+			return SBool.FALSE;
+		});
+		
+		dummy.registerBiOperator("!=", (con, a1, a2) -> {
+			return SBool.TRUE;
+		});
+		
+		dummy.registerBiOperator("*", (con, a1, a2) -> {
+			return a1.call(con, new SValue[] { a1 });
+		});
+	}
+	
 	private final String[] argNames;
 	private final Instruction[] body;
 	private final String name;

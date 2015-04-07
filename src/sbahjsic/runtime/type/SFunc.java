@@ -20,6 +20,10 @@ public final class SFunc extends AbstractType {
 			a2 = toSFuncIfPossible(a2);
 			return a1 != a2 ? SBool.TRUE : SBool.FALSE;
 		});
+		
+		dummy.registerBiOperator("*", (con, a1, a2) -> {
+			return a1.call(con, new SValue[] { a2 });
+		});
 	}
 	
 	private static SValue toSFuncIfPossible(SValue value) {
