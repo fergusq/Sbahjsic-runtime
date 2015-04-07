@@ -14,6 +14,7 @@ public final class SLong extends AbstractType {
 			if(divider == 0) { return SUndefined.INSTANCE; }
 			return new SLong(a1.asLong() / divider);
 		});
+		dummy.registerBiOperator("%", (con, a1, a2) -> new SLong(a1.asLong() % a2.asLong()));
 		
 		dummy.registerBiOperator("**", (con, a1, a2) -> new SLong((long) Math.pow(a1.asLong(), a2.asLong())));
 		
