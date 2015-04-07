@@ -51,12 +51,20 @@ public final class Arguments {
 				arguments.debug = true;
 			} else if(arg.equals("-nln")) {
 				arguments.saveLineNumbers = false;
-			} else if(arg.equals("-fix--longs")) {
+			} else if(arg.equals("-fixlongs")) {
 				arguments.fixLongs = true;
-			} else if(arg.equals("-fix--floats")) {
+			} else if(arg.equals("-fixfloats")) {
 				arguments.fixFloats = true;
+			} else if(arg.equals("-help")) {
+				System.out.println("AVAILABLE ARGUMENTS:"
+						+ "\n  -nln          Discard line numbers in compilation."
+						+ "\n  -fixlongs     Make longs work."
+						+ "\n  -fixfloats    Make floats work."
+						+ "\n  -help         Display this message.");
+				System.exit(0);
 			} else {
 				if(!arg.endsWith(".sb")) {
+					System.out.println("(Note: -help for help.)");
 					Errors.warn(Warning.NONSTANDARD_FILE_EXTENSION, arg);
 				}
 				arguments.files.add(arg);
