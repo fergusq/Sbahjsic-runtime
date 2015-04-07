@@ -45,6 +45,14 @@ public final class SRef extends AbstractType {
 	public int asInt() { return refersTo.asInt(); }
 	
 	@Override
+	public float asFloat() {
+		if(!Main.ARGS.fixFloats()) {
+			return refersTo.asInt();
+		}
+		return refersTo.asFloat();
+	}
+	
+	@Override
 	public long asLong() {
 		if(!Main.ARGS.fixLongs()) {
 			return refersTo.asInt();
